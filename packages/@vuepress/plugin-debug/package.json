@@ -1,6 +1,6 @@
 {
   "name": "@vuepress/plugin-debug",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.22",
   "description": "VuePress plugin - debug",
   "keywords": [
     "vuepress-plugin",
@@ -18,8 +18,8 @@
   },
   "license": "MIT",
   "author": "meteorlxy",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/node/index.js",
+  "types": "lib/node/index.d.ts",
   "files": [
     "lib"
   ],
@@ -29,11 +29,11 @@
     "copy": "cpx \"src/**/*.css\" lib"
   },
   "dependencies": {
-    "@vuepress/client": "2.0.0-beta.1",
-    "@vuepress/core": "2.0.0-beta.1",
-    "@vuepress/utils": "2.0.0-beta.1",
-    "vue": "^3.0.7",
-    "vue-router": "^4.0.4"
+    "@vuepress/client": "2.0.0-beta.21",
+    "@vuepress/core": "2.0.0-beta.22",
+    "@vuepress/utils": "2.0.0-beta.21",
+    "vue": "^3.1.4",
+    "vue-router": "^4.0.10"
   },
   "publishConfig": {
     "access": "public"

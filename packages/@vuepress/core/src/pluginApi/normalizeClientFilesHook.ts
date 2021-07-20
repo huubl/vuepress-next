@@ -1,5 +1,5 @@
 import { isArray, isFunction } from '@vuepress/shared'
-import { fs } from '@vuepress/utils'
+import { fs, logger } from '@vuepress/utils'
 import type { ClientFilesHook } from '../types'
 
 /**
@@ -21,6 +21,8 @@ export const normalizeClientFilesHook = (
     const isExisted = await fs.pathExists(filePath)
     if (isExisted) {
       result.push(filePath)
+    } else {
+      throw logger.createError(`client file does not exist: ${filePath}`)
     }
   }
 

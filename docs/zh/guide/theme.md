@@ -45,8 +45,8 @@ module.exports = {
 
 ```js
 module.exports = {
-  theme: '/path/to/docs/.vuepress/theme',
+  theme: path.resolve(__dirname, './path/to/docs/.vuepress/theme'),
 }
 ```
 
-接下来，前往 [深入 > 开发主题](./advanced/theme.md) 学习如何开发你自己的主题。
+接下来，前往 [深入 > 开发主题](../advanced/theme.md) 学习如何开发你自己的主题。

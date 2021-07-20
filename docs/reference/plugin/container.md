@@ -1,6 +1,6 @@
 # container
 
-> @vuepress/plugin-container
+<NpmBadge package="@vuepress/plugin-container" />
 
 Register markdown custom containers in your VuePress site.
 
@@ -19,6 +19,10 @@ The [Custom Containers](../default-theme/markdown.md#custom-containers) of defau
 - The `type` is required and should be specified via [type](#type) option.
 - The `info` is optional, and the default value can be specified via `defaultInfo` in [locales](#locales) option.
 - The `content` can be any valid markdown content.
+
+::: tip
+This plugin can be used multiple times to support different types of containers.
+:::
 
 ## Options
 

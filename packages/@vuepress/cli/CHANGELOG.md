@@ -3,6 +3,176 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.22](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.21...v2.0.0-beta.22) (2021-07-11)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.21](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.20...v2.0.0-beta.21) (2021-07-03)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.20](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2021-06-26)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.19](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2021-06-19)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.18](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.17...v2.0.0-beta.18) (2021-06-12)
+
+
+### Features
+
+* **cli:** watch dependencies of user config file ([b220524](https://github.com/vuepress/vuepress-next/commit/b220524f1534a1ada3b896854dba181e8ea36221))
+
+
+
+
+
+# [2.0.0-beta.17](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.16...v2.0.0-beta.17) (2021-06-04)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.15](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2021-05-27)
+
+
+### Features
+
+* **cli:** allow setting default app config ([41f9dc6](https://github.com/vuepress/vuepress-next/commit/41f9dc612d65a7aae777a75ee00715f0b7bab7c6))
+
+
+
+
+
+# [2.0.0-beta.14](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.13...v2.0.0-beta.14) (2021-05-12)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.13](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2021-05-06)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.12](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2021-04-30)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.11](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2021-04-28)
+
+
+### Performance Improvements
+
+* **core:** merge page routes to reduce requests in vite dev ([fa2a614](https://github.com/vuepress/vuepress-next/commit/fa2a61413c70afd426f74e57e6e5d2a4900c6568))
+
+
+
+
+
+# [2.0.0-beta.10](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2021-04-27)
+
+
+### Bug Fixes
+
+* **cli:** do not clean cache and temp on restart ([047a52c](https://github.com/vuepress/vuepress-next/commit/047a52c265db355de3aaa298c14150779e9182f4))
+
+
+
+
+
+# [2.0.0-beta.9](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2021-04-21)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.8](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2021-04-11)
+
+
+### Features
+
+* **utils:** add logger.createError method ([0c198d7](https://github.com/vuepress/vuepress-next/commit/0c198d7f9e122828b37a2db670048cfc2ce20e81))
+
+
+
+
+
+# [2.0.0-beta.7](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2021-04-09)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.6](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2021-03-26)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.5](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2021-03-26)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.4](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2021-03-20)
+
+**Note:** Version bump only for package @vuepress/cli
+
+
+
+
+
+# [2.0.0-beta.3](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2021-03-17)
+
+
+### Features
+
+* **cli:** show info of vite related packages ([73a66df](https://github.com/vuepress/vuepress-next/commit/73a66df2c19b4b292e5f7b48cb967490a0a5dd69))
+
+
+
+
+
 # [2.0.0-beta.2](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2021-03-14)
 
 **Note:** Version bump only for package @vuepress/cli

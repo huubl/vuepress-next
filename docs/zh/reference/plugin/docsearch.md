@@ -1,6 +1,6 @@
 # docsearch
 
-> @vuepress/plugin-docsearch
+<NpmBadge package="@vuepress/plugin-docsearch" />
 
 将 [Algolia DocSearch](https://docsearch.algolia.com/) 集成到 VuePress 中，为你的文档网站提供搜索功能。
 
@@ -15,6 +15,47 @@
 你需要 [提交你的网站 URL](https://docsearch.algolia.com/apply/) 来加入 DocSearch 项目。当你的索引成功创建后， DocSearch 团队会将 [apiKey](#apikey) 和 [indexName](#indexname) 发送到你的邮箱。接下来，你就可以配置该插件，在 VuePress 中启用 DocSearch 了。
 
 或者，你也可以 [运行你自己的爬虫](https://docsearch.algolia.com/docs/run-your-own/) 来创建索引，然后使用你自己的 [appId](#appId), [apiKey](#apikey) 和 [indexName](#indexname) 来配置该插件。
+
+::: details 点击查看爬虫配置示例
+```json{19-23,25-27}
+{
+  "index_name": "your_index_name",
+  "start_urls": [
+    "https://your.domain.name/"
+  ],
+  "stop_urls": [],
+  "selectors": {
+    "lvl0": {
+      "selector": ".sidebar-heading.active",
+      "global": true,
+      "default_value": "Documentation"
+    },
+    "lvl1": ".theme-default-content h1",
+    "lvl2": ".theme-default-content h2",
+    "lvl3": ".theme-default-content h3",
+    "lvl4": ".theme-default-content h4",
+    "lvl5": ".theme-default-content h5",
+    "text": ".theme-default-content p, .theme-default-content li",
+    "lang": {
+      "selector": "/html/@lang",
+      "type": "xpath",
+      "global": true
+    }
+  },
+  "custom_settings": {
+    "attributesForFaceting": ["lang"]
+  }
+}
+```
+
+上述 `selectors` 是用于默认主题的配置，你可以根据你使用的主题来修改它们。
+
+注意 `selectors.lang` 和 `custom_settings.attributesForFaceting` 字段，它们是**必须**的，否则该插件将无法正常工作。
+:::
+
+::: tip
+如果你使用的不是默认主题，或者在使用 Docsearch 的时候遇到了任何问题，你也可以检查上述的爬虫配置示例，然后前往 [docsearch-configs](https://github.com/algolia/docsearch-configs) 仓库，向你的网站的对应配置提交 PR 。
+:::
 
 ## 配置项
 

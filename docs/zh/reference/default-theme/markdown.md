@@ -1,5 +1,7 @@
 # Markdown
 
+<NpmBadge package="@vuepress/theme-default" />
+
 ## 自定义容器
 
 - 使用：
@@ -39,7 +41,7 @@
 :::
 
 ::: details
-这是一个 details 标签，在 IE / Edge 中不生效
+这是一个 details 标签
 :::
 ```
 
@@ -58,7 +60,7 @@
 :::
 
 ::: details
-这是一个 details 标签，在 IE / Edge 中不生效
+这是一个 details 标签
 :::
 
 - 示例 2 （自定义标题）：

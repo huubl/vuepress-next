@@ -1,7 +1,7 @@
 import * as webpack from 'webpack'
-import type { ServerEntry } from '@vuepress/client'
+import type { CreateVueAppFunction } from '@vuepress/client'
 import type { App, Bundler } from '@vuepress/core'
-import { chalk, fs, logger, ora, withSpinner } from '@vuepress/utils'
+import { chalk, fs, ora, withSpinner } from '@vuepress/utils'
 import type { WebpackBundlerOptions } from '../types'
 import { resolveWebpackConfig } from '../utils'
 import {
@@ -16,20 +16,17 @@ import type { ClientManifest } from './ssr'
 export const createBuild = (
   options: WebpackBundlerOptions
 ): Bundler['build'] => async (app: App) => {
-  // empty dest directory
-  await fs.emptyDir(app.dir.dest())
-
   // webpack compile
   await withSpinner('Compiling with webpack')(async () => {
     // create webpack config
     const clientConfig = resolveWebpackConfig({
-      config: createClientConfig(app, options),
+      config: await createClientConfig(app, options),
       options,
       isServer: false,
       isBuild: true,
     })
     const serverConfig = resolveWebpackConfig({
-      config: createServerConfig(app, options),
+      config: await createServerConfig(app, options),
       options,
       isServer: true,
       isBuild: true,
@@ -76,12 +73,12 @@ export const createBuild = (
     } = resolveClientManifestMeta(clientManifest)
 
     // load the compiled server bundle
-    const { createServerApp } = require(app.dir.dest(
-      '.server/app'
-    )) as ServerEntry
+    const { createVueApp } = require(app.dir.dest('.server/app')) as {
+      createVueApp: CreateVueAppFunction
+    }
 
     // create vue ssr app
-    const { app: vueApp, router: vueRouter } = await createServerApp()
+    const { app: vueApp, router: vueRouter } = await createVueApp()
 
     // pre-render pages to html files
     const spinner = ora()
@@ -107,10 +104,4 @@ export const createBuild = (
     // remove server dest directory after pages rendered
     await fs.remove(app.dir.dest('.server'))
   }
-
-  // plugin hook: onGenerated
-  await app.pluginApi.hooks.onGenerated.process(app)
-
-  // print success log
-  logger.success('VuePress webpack build successfully!')
 }

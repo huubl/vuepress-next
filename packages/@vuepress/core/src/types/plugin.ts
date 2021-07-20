@@ -1,5 +1,5 @@
 import type { App } from './app'
-import type { HooksExposed } from './plugin-api'
+import type { HooksExposed } from './pluginApi'
 
 /**
  * Vuepress plugin
@@ -34,15 +34,10 @@ export interface PluginObject extends Partial<HooksExposed> {
 
   // allow use a plugin multiple times or not
   multiple?: boolean
-
-  // allow use plugins in plugin
-  plugins?: PluginConfig[]
 }
 
 /**
- * Vuepress plugin options
- *
- * It can be set by user in user config, and will be passed to plugin function
+ * Vuepress plugin options basic type
  */
 export type PluginOptions = Record<string, any>
 

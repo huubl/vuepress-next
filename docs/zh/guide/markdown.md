@@ -50,11 +50,11 @@ VuePress 会使用 [markdown-it](https://github.com/markdown-it/markdown-it) 来
 ```md
 <!-- 相对路径 -->
 [首页](../README.md)  
-[配置參考](../reference/config.md)  
+[配置参考](../reference/config.md)  
 [快速上手](./getting-started.md)  
 <!-- 绝对路径 -->
 [指南](/zh/guide/README.md)  
-[配置參考 > markdown.links](/zh/reference/config.md#links)  
+[配置参考 > markdown.links](/zh/reference/config.md#links)  
 <!-- URL -->
 [GitHub](https://github.com) 
 ```
@@ -62,21 +62,23 @@ VuePress 会使用 [markdown-it](https://github.com/markdown-it/markdown-it) 来
 **转换为**
 
 ```vue
-<RouterLink to="/zh/">首页</RouterLink>
-<RouterLink to="/zh/reference/config.html">配置參考</RouterLink>
-<RouterLink to="/zh/guide/getting-started.html">快速上手</RouterLink>
-<RouterLink to="/zh/guide/">指南</RouterLink>
-<RouterLink to="/zh/reference/config.html#links">配置參考 &gt; markdown.links</RouterLink>
-<a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub<OutboundLink/></a>
+<template>
+  <RouterLink to="/zh/">首页</RouterLink>
+  <RouterLink to="/zh/reference/config.html">配置参考</RouterLink>
+  <RouterLink to="/zh/guide/getting-started.html">快速上手</RouterLink>
+  <RouterLink to="/zh/guide/">指南</RouterLink>
+  <RouterLink to="/zh/reference/config.html#links">配置参考 &gt; markdown.links</RouterLink>
+  <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub<OutboundLink/></a>
+</template>
 ```
 
 **渲染为**
 
 [首页](../README.md)  
-[配置參考](../reference/config.md)  
+[配置参考](../reference/config.md)  
 [快速上手](./getting-started.md)  
 [指南](/zh/guide/README.md)  
-[配置參考 > markdown.links](/zh/reference/config.md#links)  
+[配置参考 > markdown.links](/zh/reference/config.md#links)  
 [GitHub](https://github.com) 
 
 **解释**
@@ -105,7 +107,7 @@ VuePress 会使用 [markdown-it](https://github.com/markdown-it/markdown-it) 来
 
 你可以在你的 Markdown 内容中输入 `:EMOJICODE:` 来添加 Emoji 表情。
 
-前往 [emoji-cheat-sheet.com](https://emoji-cheat-sheet.com/) 来查看所有可用的 Emoji 表情和对应代码。
+前往 [emoji-cheat-sheet](https://github.com/ikatyang/emoji-cheat-sheet) 来查看所有可用的 Emoji 表情和对应代码。
 
 **输入**
 
@@ -149,44 +151,6 @@ Emoji 扩展由 [markdown-it-emoji](https://github.com/markdown-it/markdown-it-e
 ### 代码块
 
 下列代码块扩展是在 Node 端进行 Markdown 解析的时候实现的。这意味着代码块并不会在客户端被处理。
-
-如果你想使用 [prism.js](https://prismjs.com/#basic-usage) 或 [highlight.js](https://highlightjs.org/) 在客户端进行语法高亮，你可以禁用我们的代码块扩展，然后手动在客户端引入你想要使用的库。
-
-#### 语法高亮
-
-VuePress 使用 [Prism](https://prismjs.com/) 来对代码块进行语法高亮。
-
-Prism 支持多种编程语言，你可以前往 [Prism supported languages](https://prismjs.com/#supported-languages) 来查看所有可用的编程语言。
-
-你只需要在代码块前添加对应语言的标识符，就可以启用代码高亮：
-
-**输入**
-
-````md
-```ts
-import type { UserConfig } from '@vuepress/cli'
-
-export const config: UserConfig = {
-  title: '你好， VuePress',
-}
-```
-````
-
-**输出**
-
-```ts
-import type { UserConfig } from '@vuepress/cli'
-
-export const config: UserConfig = {
-  title: '你好， VuePress',
-}
-```
-
-::: tip
-代码高亮扩展是由我们的内置插件支持的。
-
-配置参考： [markdown.code.highlight](../reference/config.md#markdown-code-highlight)
-:::
 
 #### 行高亮
 
@@ -322,7 +286,12 @@ const onePlusTwoPlusThree = {{ 1 + 2 + 3 }}
 1 + 2 + 3 = {{ 1 + 2 + 3 }}
 ```
 
-```js:no-v-pre
+<!--
+在 JS 代码块上使用 :no-v-pre 的话，会在使用 shiki 时遇到一些潜在的问题，所以这里
+我们实际上没有使用 :no-v-pre ，只是作为一个错误用法的示例。
+-->
+
+```js
 // 由于 JS 代码高亮，这里不会被正确编译
 const onePlusTwoPlusThree = {{ 1 + 2 + 3 }}
 ```
@@ -333,11 +302,76 @@ v-pre 扩展是由我们的内置插件支持的。
 配置参考： [markdown.code.vPre](../reference/config.md#markdown-vpre)
 :::
 
+### 导入代码块
+
+你可以使用下面的语法，从文件中导入代码块：
+
+```md
+<!-- 最简单的语法 -->
+@[code](../foo.js)
+```
+
+如果你只想导入这个文件的一部分：
+
+```md
+<!-- 仅导入第 1 行至第 10 行 -->
+@[code{1-10}](../foo.js)
+```
+
+代码语言会根据文件扩展名进行推断，但我们建议你显式指定：
+
+```md
+<!-- 指定代码语言 -->
+@[code js](../foo.js)
+```
+
+实际上，`[]` 内的第二部分会被作为代码块标记来处理，因此在上面 [代码块](#代码块) 章节中提到的语法在这里都可以支持：
+
+```md
+<!-- 行高亮 -->
+@[code js{2,4-5}](../foo.js)
+```
+
+下面是一个复杂的例子：
+
+- 导入 `'../foo.js'` 文件的第 3 行至第 10 行
+- 指定语言为 `'js'`
+- 对导入代码的第 3 行进行高亮，即 `'../foo.js'` 文件的第 5 行
+- 禁用行号
+
+```md
+@[code{3-10} js{3}:no-line-numbers](../foo.js)
+```
+
+需要注意的是，路径别名在导入代码语法中不会生效。你可以通过下面的配置来自行处理路径别名：
+
+```js
+module.exports = {
+  markdown: {
+    importCode: {
+      handleImportPath: (str) =>
+        str.replace(/^@src/, path.resolve(__dirname, 'path/to/src')),
+    },
+  },
+}
+```
+
+```md
+<!-- 会被解析至 'path/to/src/foo.js' -->
+@[code](@src/foo.js)
+```
+
+::: tip
+导入代码扩展是由我们的内置插件支持的。
+
+配置参考： [markdown.importCode](../reference/config.md#markdown-importcode)
+:::
+
 ## 在 Markdown 中使用 Vue
 
 这一章节会介绍 Vue 在 Markdown 中一些基本用法。
 
-可以前往 [深入 > Markdown 和 Vue SFC](./advanced/markdown.md) 来了解更多内容。
+可以前往 [Cookbook > Markdown 和 Vue SFC](../advanced/cookbook/markdown-and-vue-sfc.md) 来了解更多内容。
 
 ### 模板语法
 
@@ -381,3 +415,18 @@ v-pre 扩展是由我们的内置插件支持的。
 
 前往 [默认主题 > 内置组件](../reference/default-theme/components.md) 查看默认主题中的所有内置组件。
 :::
+
+## 注意事项
+
+### 已废弃的 HTML 标签
+
+已废弃的 HTML 标签默认不允许在 VuePress 的 Markdown 中使用，比如 [\<center>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/center) 和 [\<font>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font) 等。
+
+这些标签不会被 Vue 模板编译器识别成原生 HTML 标签。相反，Vue 会尝试将这些标签解析为 Vue 组件，而显然这些组件通常是不存在的。
+
+你应该尽量避免使用已废弃的 HTML 标签。不过，如果你无论如何都要使用这些标签的话，可以尝试下面两种方法之一：
+
+- 添加一个 [v-pre](https://v3.cn.vuejs.org/api/directives.html#v-pre) 指令来跳过这个元素和它的子元素的编译过程。注意所有的模板语法也都会失效。
+- 设置 [compilerOptions.isCustomElement](https://v3.vuejs.org/api/application-config.html#compileroptions) 来告诉 Vue 模板编译器不要尝试作为组件来解析它们。
+  - 对于 `@bundler-webpack` ，设置 [vue.compilerOptions](../reference/bundler/webpack.md#vue)
+  - 对于 `@bundler-vite` ，设置 [vuePluginOptions.template.compilerOptions](../reference/bundler/vite.md#vuepluginoptions)

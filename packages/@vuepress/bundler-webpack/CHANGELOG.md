@@ -3,6 +3,191 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.22](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.21...v2.0.0-beta.22) (2021-07-11)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.21](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.20...v2.0.0-beta.21) (2021-07-03)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.20](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2021-06-26)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.19](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2021-06-19)
+
+
+### Bug Fixes
+
+* **bundler-webpack:** sync types of webpack-dev-server 4 (close [#208](https://github.com/vuepress/vuepress-next/issues/208)) ([207014b](https://github.com/vuepress/vuepress-next/commit/207014b087d29f43bd01604954e33277b6b19150))
+
+
+### Features
+
+* **bundler-webpack:** support vue-loader options ([5a51912](https://github.com/vuepress/vuepress-next/commit/5a51912d974ba4a83a9586b40cb7cb7982c6c81b))
+
+
+
+
+
+# [2.0.0-beta.18](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.17...v2.0.0-beta.18) (2021-06-12)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.17](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.16...v2.0.0-beta.17) (2021-06-04)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.15](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2021-05-27)
+
+
+### Features
+
+* **bundler-webpack:** bump webpack-dev-server to 4.0.0-beta.3 ([2e86826](https://github.com/vuepress/vuepress-next/commit/2e8682680eba7736bcf3325014a927a87503ba0b))
+
+
+
+
+
+# [2.0.0-beta.14](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.13...v2.0.0-beta.14) (2021-05-12)
+
+
+### Features
+
+* **core:** allow alias and define hook to return a promise ([3b3d289](https://github.com/vuepress/vuepress-next/commit/3b3d2893c58115de65606ffc508fdc7a9cf96f79))
+
+
+
+
+
+# [2.0.0-beta.13](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2021-05-06)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.12](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2021-04-30)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.11](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2021-04-28)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.10](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2021-04-27)
+
+
+### Bug Fixes
+
+* **client:** make hydration work properly (close [#123](https://github.com/vuepress/vuepress-next/issues/123)) ([34a5364](https://github.com/vuepress/vuepress-next/commit/34a5364ad6005e64a3e726296b9b8b73318fcbd4))
+
+
+
+
+
+# [2.0.0-beta.9](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2021-04-21)
+
+
+### Code Refactoring
+
+* **core:** move evergreen option to bundler-webpack ([58c30c1](https://github.com/vuepress/vuepress-next/commit/58c30c1207f0f6e09e9d68096786ef189c67e9db))
+
+
+### BREAKING CHANGES
+
+* **core:** `evergreen` option is moved to `bundlerConfig.evergreen` for bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.8](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2021-04-11)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.7](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2021-04-09)
+
+
+### Bug Fixes
+
+* **bundler-webpack:** always extract css file in build mode ([accc484](https://github.com/vuepress/vuepress-next/commit/accc484f95485a6013aad573f562565c16ac5ff8))
+
+
+### Features
+
+* **bundler-webpack:** bump webpack-dev-server to 4.0.0-beta.2 ([dd8c408](https://github.com/vuepress/vuepress-next/commit/dd8c40875cca382450d2758b2c7609bb69332d19))
+
+
+
+
+
+# [2.0.0-beta.6](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2021-03-26)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.5](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2021-03-26)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.4](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2021-03-20)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
+# [2.0.0-beta.3](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.2...v2.0.0-beta.3) (2021-03-17)
+
+**Note:** Version bump only for package @vuepress/bundler-webpack
+
+
+
+
+
 # [2.0.0-beta.1](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2021-03-13)
 
 **Note:** Version bump only for package @vuepress/bundler-webpack

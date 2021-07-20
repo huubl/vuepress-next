@@ -105,6 +105,7 @@ export const tocPlugin: PluginWithOptions<TocPluginOptions> = (
     headers = resolveHeadersFromTokens(state.tokens, {
       level,
       allowHtml: true,
+      escapeText: true,
       slugify,
       format,
     })
@@ -135,6 +136,7 @@ export const tocPlugin: PluginWithOptions<TocPluginOptions> = (
 
   // custom toc_body render rule
   md.renderer.rules.toc_body = () => {
+    /* istanbul ignore if */
     if (!headers) {
       return ''
     }

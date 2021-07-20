@@ -61,12 +61,14 @@ Take our documentation source files as an example:
 **Converted to**
 
 ```vue
-<RouterLink to="/">Home</RouterLink>
-<RouterLink to="/reference/config.html">Config Reference</RouterLink>
-<RouterLink to="/guide/getting-started.html">Getting Started</RouterLink>
-<RouterLink to="/guide/">Guide</RouterLink>
-<RouterLink to="/reference/config.html#links">Config Reference &gt; markdown.links</RouterLink>
-<a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub<OutboundLink/></a>
+<template>
+  <RouterLink to="/">Home</RouterLink>
+  <RouterLink to="/reference/config.html">Config Reference</RouterLink>
+  <RouterLink to="/guide/getting-started.html">Getting Started</RouterLink>
+  <RouterLink to="/guide/">Guide</RouterLink>
+  <RouterLink to="/reference/config.html#links">Config Reference &gt; markdown.links</RouterLink>
+  <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub<OutboundLink/></a>
+</template>
 ```
 
 **Rendered as**
@@ -104,7 +106,7 @@ Also see: [Built-in Components > OutboundLink](../reference/components.md#outbou
 
 You can add emoji to your Markdown content by typing `:EMOJICODE:`.
 
-For a full list of available emoji and codes, check out [emoji-cheat-sheet.com](https://emoji-cheat-sheet.com/).
+For a full list of available emoji and codes, check out [emoji-cheat-sheet](https://github.com/ikatyang/emoji-cheat-sheet).
 
 **Input**
 
@@ -147,44 +149,6 @@ Config reference: [markdown.toc](../reference/config.md#markdown-toc)
 ### Code Blocks
 
 Following code blocks extensions are implemented during markdown parsing in Node side. That means, the code blocks won't be processed in client side.
-
-If you want to implement client-side syntax highlighting via [prism.js](https://prismjs.com/#basic-usage) or [highlight.js](https://highlightjs.org/), you could disable our code blocks extensions, and introduce your library manually in client side. 
-
-#### Syntax Highlighting
-
-VuePress uses [Prism](https://prismjs.com/) to highlight language syntax in Markdown code blocks, using coloured text.
-
-Prism supports a wide variety of programming languages. For a full list of available languages, check out [Prism supported languages](https://prismjs.com/#supported-languages).
-
-You can add an optional language identifier to enable syntax highlighting in your fenced code blocks:
-
-**Input**
-
-````md
-```ts
-import type { UserConfig } from '@vuepress/cli'
-
-export const config: UserConfig = {
-  title: 'Hello, VuePress',
-}
-```
-````
-
-**Output**
-
-```ts
-import type { UserConfig } from '@vuepress/cli'
-
-export const config: UserConfig = {
-  title: 'Hello, VuePress',
-}
-```
-
-::: tip
-This syntax highlighting extension is supported by our built-in plugin.
-
-Config reference: [markdown.code.highlight](../reference/config.md#markdown-code-highlight)
-:::
 
 #### Line Highlighting
 
@@ -319,7 +283,12 @@ const onePlusTwoPlusThree = {{ 1 + 2 + 3 }}
 1 + 2 + 3 = {{ 1 + 2 + 3 }}
 ```
 
-```js:no-v-pre
+<!--
+using :no-v-pre on JS code blocks has potential issue with shiki, so we are
+not actually using :no-v-pre here, just as an example of incorrect usage
+-->
+
+```js
 // This won't be compiled correctly because of js syntax highlighting
 const onePlusTwoPlusThree = {{ 1 + 2 + 3 }}
 ```
@@ -330,11 +299,76 @@ This v-pre extension is supported by our built-in plugin.
 Config reference: [markdown.code.vPre](../reference/config.md#markdown-vpre)
 :::
 
+### Import Code Blocks
+
+You can import code blocks from files with following syntax:
+
+```md
+<!-- minimal syntax -->
+@[code](../foo.js)
+```
+
+If you want to partially import the file:
+
+```md
+<!-- partial import, from line 1 to line 10 -->
+@[code{1-10}](../foo.js)
+```
+
+The code language is inferred from the file extension, while it is recommended to specify it explicitly:
+
+```md
+<!-- specify the code language -->
+@[code js](../foo.js)
+```
+
+In fact, the second part inside the `[]` will be treated as the mark of the code fence, so it supports all the syntax mentioned in the above [Code Blocks](#code-blocks) section:
+
+```md
+<!-- line highlighting -->
+@[code js{2,4-5}](../foo.js)
+```
+
+Here is a complex example:
+
+- import line 3 to line 10 of the `'../foo.js'` file
+- specify the language as `'js'`
+- highlight line 3 of the imported code, i.e. line 5 of the `'../foo.js'` file
+- disable line numbers
+
+```md
+@[code{3-10} js{3}:no-line-numbers](../foo.js)
+```
+
+Notice that path aliases are not available in import code syntax. You can use following config to handle path alias yourself:
+
+```js
+module.exports = {
+  markdown: {
+    importCode: {
+      handleImportPath: (str) =>
+        str.replace(/^@src/, path.resolve(__dirname, 'path/to/src')),
+    },
+  },
+}
+```
+
+```md
+<!-- it will be resolved to 'path/to/src/foo.js' -->
+@[code](@src/foo.js)
+```
+
+::: tip
+This import code extension is supported by our built-in plugin.
+
+Config reference: [markdown.importCode](../reference/config.md#markdown-importcode)
+:::
+
 ## Using Vue in Markdown
 
 This section will introduce some basic usage of Vue in Markdown.
 
-Check out [Advanced > Markdown and Vue SFC](./advanced/markdown.md) for more details.
+Check out [Cookbook > Markdown and Vue SFC](../advanced/cookbook/markdown-and-vue-sfc.md) for more details.
 
 ### Template Syntax
 
@@ -378,3 +412,18 @@ Check out the [Built-in Components](../reference/components.md) for a full list 
 
 Check out the [Default Theme > Built-in Components](../reference/default-theme/components.md) for a full list of default theme built-in components.
 :::
+
+## Cautions
+
+### Deprecated HTML Tags
+
+Deprecated HTML tags such as [\<center>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/center) and [\<font>](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/font) are not allowed in VuePress markdown by default.
+
+Those tags would not be recognized as native HTML tags by Vue template compiler. Instead, Vue will try to resolve those tags as Vue components, and obviously these components usually don't exist.
+
+You should try to avoid using deprecated HTML tags. However, if you want to use those tags anyway, try either of the following workarounds:
+
+- Adding a [v-pre](https://v3.vuejs.org/api/directives.html#v-pre) directive to skip the compilation of the element and its children. Notice that the template syntax would also be invalid.
+- Using [compilerOptions.isCustomElement](https://v3.vuejs.org/api/application-config.html#compileroptions) to tell Vue template compiler not try to resolve them as components.
+  - For `@bundler-webpack`, set [vue.compilerOptions](../reference/bundler/webpack.md#vue)
+  - For `@bundler-vite`, set [vuePluginOptions.template.compilerOptions](../reference/bundler/vite.md#vuepluginoptions)

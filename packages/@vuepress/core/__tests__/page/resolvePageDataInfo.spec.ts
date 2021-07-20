@@ -1,19 +1,21 @@
-import { createApp, resolvePageDataInfo } from '@vuepress/core'
+import { createBaseApp, resolvePageDataInfo } from '@vuepress/core'
 import { path } from '@vuepress/utils'
 
-const source = path.resolve(__dirname, 'fake-source')
-const app = createApp({
-  source,
+const app = createBaseApp({
+  source: path.resolve(__dirname, 'fake-source'),
+  theme: path.resolve(__dirname, '../__fixtures__/themes/empty.js'),
 })
 
 describe('core > page > resolvePageDataInfo', () => {
   it('should resolve page data file path correctly', () => {
     const key = 'foobar'
-    const expectedFilePath = app.dir.temp(`internal/pageData/${key}.js`)
+    const htmlFilePathRelative = 'foobar.html'
+    const expectedFilePath = app.dir.temp(`pages/${htmlFilePathRelative}.js`)
     expect(
       resolvePageDataInfo({
         app,
         key,
+        htmlFilePathRelative,
       })
     ).toEqual({
       dataFilePath: expectedFilePath,

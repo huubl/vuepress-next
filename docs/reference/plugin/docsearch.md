@@ -1,6 +1,6 @@
 # docsearch
 
-> @vuepress/plugin-docsearch
+<NpmBadge package="@vuepress/plugin-docsearch" />
 
 Integrate [Algolia DocSearch](https://docsearch.algolia.com/) into VuePress, which can provide search to your documentation site.
 
@@ -15,6 +15,47 @@ This plugin may not be used directly in other themes, so you'd better refer to t
 You need to [submit the URL of your site](https://docsearch.algolia.com/apply/) to join the DocSearch program. The DocSearch team will send [apiKey](#apikey) and [indexName](#indexname) to your email once the index is generated. Then you can configure this plugin to enable DocSearch in VuePress.
 
 Alternatively, you can [run your own crawler](https://docsearch.algolia.com/docs/run-your-own/) to generate the index, and then use your own [appId](#appId), [apiKey](#apikey) and [indexName](#indexname) to configure this plugin.
+
+::: details Click to show the example crawler config
+```json{19-23,25-27}
+{
+  "index_name": "your_index_name",
+  "start_urls": [
+    "https://your.domain.name/"
+  ],
+  "stop_urls": [],
+  "selectors": {
+    "lvl0": {
+      "selector": ".sidebar-heading.active",
+      "global": true,
+      "default_value": "Documentation"
+    },
+    "lvl1": ".theme-default-content h1",
+    "lvl2": ".theme-default-content h2",
+    "lvl3": ".theme-default-content h3",
+    "lvl4": ".theme-default-content h4",
+    "lvl5": ".theme-default-content h5",
+    "text": ".theme-default-content p, .theme-default-content li",
+    "lang": {
+      "selector": "/html/@lang",
+      "type": "xpath",
+      "global": true
+    }
+  },
+  "custom_settings": {
+    "attributesForFaceting": ["lang"]
+  }
+}
+```
+
+The above `selectors` is the configuration used for the default theme. You can modify them according to the theme you are using.
+
+Notice that the `selectors.lang` and the `custom_settings.attributesForFaceting` fields are **required** to make this plugin work properly.
+:::
+
+::: tip
+If you are not using default theme, or you meet any problems when using docsearch, you can also check the above example crawler config, and submit a PR to the config file of your site in the [docsearch-configs](https://github.com/algolia/docsearch-configs) repo.
+:::
 
 ## Options
 

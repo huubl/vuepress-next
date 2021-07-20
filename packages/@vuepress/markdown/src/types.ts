@@ -1,5 +1,5 @@
 import * as MarkdownIt from 'markdown-it'
-import type { PageHeader } from '@vuepress/shared'
+import type { PageFrontmatter, PageHeader } from '@vuepress/shared'
 import type {
   AnchorPluginOptions,
   AssetsPluginOptions,
@@ -7,6 +7,7 @@ import type {
   EmojiPluginOptions,
   ExtractHeadersPluginOptions,
   HoistTagsPluginOptions,
+  ImportCodePluginOptions,
   LinksPluginOptions,
   TocPluginOptions,
 } from './plugins'
@@ -20,7 +21,9 @@ export interface MarkdownOptions extends MarkdownIt.Options {
   customComponent?: false
   emoji?: false | EmojiPluginOptions
   extractHeaders?: false | ExtractHeadersPluginOptions
+  extractTitle?: false
   hoistTags?: false | HoistTagsPluginOptions
+  importCode?: false | ImportCodePluginOptions
   links?: false | LinksPluginOptions
   toc?: false | TocPluginOptions
 }
@@ -57,9 +60,19 @@ export interface MarkdownEnv {
   base?: string
 
   /**
+   * Absolute file path of the markdown file
+   */
+  filePath?: string | null
+
+  /**
    * Relative file path of the markdown file
    */
   filePathRelative?: string | null
+
+  /**
+   * Frontmatter of the markdown file
+   */
+  frontmatter?: PageFrontmatter
 
   // Output
 
@@ -74,7 +87,17 @@ export interface MarkdownEnv {
   hoistedTags?: string[]
 
   /**
+   * Imported file that extracted by importCodePlugin
+   */
+  importedFiles?: string[]
+
+  /**
    * Links that extracted by linksPlugin
    */
   links?: MarkdownLink[]
+
+  /**
+   * Title that extracted by extractTitlePlugin
+   */
+  title?: string
 }

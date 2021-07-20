@@ -1,4 +1,5 @@
 import type { NavbarConfig } from '@vuepress/theme-default'
+import { version } from '../meta'
 
 export const en: NavbarConfig = [
   {
@@ -38,12 +39,46 @@ export const en: NavbarConfig = [
           '/reference/default-theme/frontmatter.md',
           '/reference/default-theme/components.md',
           '/reference/default-theme/markdown.md',
+          '/reference/default-theme/styles.md',
+        ],
+      },
+    ],
+  },
+  {
+    text: 'Plugins',
+    children: [
+      {
+        text: 'Common Features',
+        children: [
+          '/reference/plugin/back-to-top.md',
+          '/reference/plugin/container.md',
+          '/reference/plugin/docsearch.md',
+          '/reference/plugin/google-analytics.md',
+          '/reference/plugin/medium-zoom.md',
+          '/reference/plugin/nprogress.md',
+          '/reference/plugin/pwa.md',
+          '/reference/plugin/pwa-popup.md',
+          '/reference/plugin/register-components.md',
+          '/reference/plugin/search.md',
         ],
       },
       {
-        text: 'Official Plugins',
-        link: '/reference/plugin/',
-        children: [],
+        text: 'Syntax Highlighting',
+        children: [
+          '/reference/plugin/prismjs.md',
+          '/reference/plugin/shiki.md',
+        ],
+      },
+      {
+        text: 'Theme Development',
+        children: [
+          '/reference/plugin/active-header-links.md',
+          '/reference/plugin/debug.md',
+          '/reference/plugin/git.md',
+          '/reference/plugin/palette.md',
+          '/reference/plugin/theme-data.md',
+          '/reference/plugin/toc.md',
+        ],
       },
     ],
   },
@@ -53,10 +88,13 @@ export const en: NavbarConfig = [
       {
         text: 'Advanced',
         children: [
-          '/guide/advanced/architecture.md',
-          '/guide/advanced/plugin.md',
-          '/guide/advanced/theme.md',
-          '/guide/advanced/markdown.md',
+          '/advanced/architecture.md',
+          '/advanced/plugin.md',
+          '/advanced/theme.md',
+          {
+            text: 'Cookbook',
+            link: '/advanced/cookbook/',
+          },
         ],
       },
       {
@@ -64,23 +102,28 @@ export const en: NavbarConfig = [
         children: [
           '/contributing.md',
           {
-            text: 'Changelog',
-            link:
-              'https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md',
-          },
-          {
             text: 'Awesome VuePress',
             link: 'https://github.com/vuepress/awesome-vuepress',
           },
-          {
-            text: 'v1 docs',
-            link: 'https://v1.vuepress.vuejs.org',
-          },
-          {
-            text: 'v0 docs',
-            link: 'https://v0.vuepress.vuejs.org',
-          },
         ],
+      },
+    ],
+  },
+  {
+    text: `v${version}`,
+    children: [
+      {
+        text: 'Changelog',
+        link:
+          'https://github.com/vuepress/vuepress-next/blob/main/CHANGELOG.md',
+      },
+      {
+        text: 'v1.x',
+        link: 'https://v1.vuepress.vuejs.org',
+      },
+      {
+        text: 'v0.x',
+        link: 'https://v0.vuepress.vuejs.org',
       },
     ],
   },

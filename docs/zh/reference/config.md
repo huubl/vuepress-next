@@ -1,5 +1,8 @@
 # 配置
 
+<NpmBadge package="@vuepress/cli" />
+<NpmBadge package="@vuepress/core" />
+
 VuePress 配置的参考文档，可以通过配置文件来设置这些配置。 VuePress 约定的配置文件为（按照优先顺序）：
 
 - 当前工作目录 `cwd` 下：
@@ -159,7 +162,7 @@ module.exports = {
 module.exports = {
   theme: 'vuepress-theme-foo',
   theme: 'bar',
-  theme: '/path/to/local/theme',
+  theme: path.resolve(__dirname, './path/to/local/theme'),
 }
 ```
 
@@ -268,10 +271,13 @@ module.exports = {
 
   对 VuePress 内置的 Markdown 语法扩展进行配置。
 
+  它可以接收 [markdown-it](https://github.com/markdown-it/markdown-it) 的所有配置项，以及下列额外的配置项。
+
 - 参考：
+  - [markdown-it > Init with presets and options](https://github.com/markdown-it/markdown-it#init-with-presets-and-options)
   - [指南 > Markdown > 语法扩展](../guide/markdown.md#语法扩展)
 
-#### markdown.anchor
+### markdown.anchor
 
 - 类型： `AnchorPluginOptions | false`
 
@@ -284,7 +290,7 @@ module.exports = {
 - 参考：
   - [指南 > Markdown > 语法扩展 > 标题锚点](../guide/markdown.md#标题锚点)
 
-#### markdown.assets
+### markdown.assets
 
 - 类型： `AssetsPluginOptions | false`
 
@@ -298,7 +304,7 @@ module.exports = {
 除非你了解它的用途，否则你不应该设置该配置项。
 :::
 
-#### markdown.code
+### markdown.code
 
 - 类型： `CodePluginOptions | false`
 
@@ -311,22 +317,7 @@ module.exports = {
 - 参考：
   - [指南 > Markdown > 语法扩展 > 代码块](../guide/markdown.md#代码块)
 
-##### markdown.code.highlight
-
-- 类型： `boolean`
-
-- 默认值： `true`
-
-- 详情：
-
-  是否启用代码块语法高亮。
-
-  如果你想在客户端进行语法高翔，你可以禁用该配置项。比如使用 [Prismjs](https://prismjs.com/) 或 [highlight.js](https://highlightjs.org/) 。
-
-- 参考：
-  - [指南 > Markdown > 语法扩展 > 代码块 > 语法高亮](../guide/markdown.md#语法高亮)
-
-##### markdown.code.highlightLines
+#### markdown.code.highlightLines
 
 - 类型： `boolean`
 
@@ -339,20 +330,23 @@ module.exports = {
 - 参考：
   - [指南 > Markdown > 语法扩展 > 代码块 > 行高亮](../guide/markdown.md#行高亮)
 
-##### markdown.code.lineNumbers
+#### markdown.code.lineNumbers
 
-- 类型： `boolean`
+- 类型： `boolean | number`
 
 - 默认值： `true`
 
 - 详情：
 
-  是否启用代码块行号。
+  配置代码块行号。
+
+  - 布尔值 `boolean` 代表是否启用代码块行号。
+  - 数字 `number` 代表显示行号所需的最少行数。例如，如果你将它设置为 `4` ，那么只有在你的代码块包含至少 4 行代码时才会启用行号。
 
 - 参考：
   - [指南 > Markdown > 语法扩展 > 代码块 > 行号](../guide/markdown.md#行号)
 
-##### markdown.code.preWrapper
+#### markdown.code.preWrapper
 
 - 类型： `boolean`
 
@@ -364,9 +358,11 @@ module.exports = {
 
   `highlightLines` 和 `lineNumbers` 依赖于这个额外的包裹层。这换句话说，如果你禁用了 `preWrapper` ，那么行高亮和行号也会被同时禁用。
 
-  如果你想要在客户端来实现这些功能时，可以禁用该配置项。比如使用 [Prismjs Line Highlight](https://prismjs.com/plugins/line-highlight/) 或者 [Prismjs Line Numbers](https://prismjs.com/plugins/line-numbers/)。
+::: tip
+如果你想要在客户端来实现这些功能时，可以禁用该配置项。比如使用 [Prismjs Line Highlight](https://prismjs.com/plugins/line-highlight/) 或者 [Prismjs Line Numbers](https://prismjs.com/plugins/line-numbers/)。
+:::
 
-##### markdown.code.vPre
+#### markdown.code.vPre
 
 - 类型： `boolean`
 
@@ -379,7 +375,7 @@ module.exports = {
 - 参考：
   - [指南 > Markdown > 语法扩展 > 代码块 > 添加 v-pre](../guide/markdown.md#添加-v-pre)
 
-#### markdown.customComponent
+### markdown.customComponent
 
 - 类型： `undefined | false`
 
@@ -393,7 +389,7 @@ module.exports = {
 除非你了解它的用途，否则你不应该设置该配置项。
 :::
 
-#### markdown.emoji
+### markdown.emoji
 
 - 类型： `EmojiPluginOptions | false`
 
@@ -406,7 +402,7 @@ module.exports = {
 - 参考：
   - [指南 > Markdown > 语法扩展 > Emoji](../guide/markdown.md#emoji)
 
-#### markdown.extractHeaders
+### markdown.extractHeaders
 
 - 类型： `ExtractHeadersPluginOptions | false`
 
@@ -414,11 +410,27 @@ module.exports = {
 
   VuePress 内置的 markdown-it extract-headers 插件的配置项。
 
-  它将会把页面的标题提取到 Page Data 中，可以用于生成侧边栏、目录等。比如当前页面的侧边栏，就是由这个插件提取出的标题来自动生成的。
+  它将会把页面的子标题提取到 Page Data 中，可以用于生成侧边栏、目录等。比如当前页面的侧边栏，就是由这个插件提取出的标题来自动生成的。
 
   设置为 `false` 可以禁用该插件。
 
-#### markdown.hoistTags
+### markdown.extractTitle
+
+- 类型： `undefined | false`
+
+- 详情：
+
+  VuePress 内置的 markdown-it extract-title 插件的配置项。
+
+  它将会把大标题提取到 Page Data 中，将会被用作页面标题。
+
+  设置为 `false` 可以禁用该插件。
+
+::: danger
+除非你了解它的用途，否则你不应该设置该配置项。
+:::
+
+### markdown.hoistTags
 
 - 类型： `HoistTagsPluginOptions | false`
 
@@ -431,24 +443,81 @@ module.exports = {
   设置为 `false` 可以禁用该插件。
 
 - 参考：
-  - [深入 > Markdown 与 Vue SFC](../guide/advanced/markdown.md)
+  - [Cookbook > Markdown 与 Vue SFC](../advanced/cookbook/markdown-and-vue-sfc.md)
 
-#### markdown.links
+### markdown.importCode
 
-- 类型： `LinksPluginOptions | false`
+- 类型： `ImportCodePluginOptions | false`
+
+- 详情：
+
+  VuePress 内置的 markdown-it 导入代码插件的配置项。
+
+  设置为 `false` 可以禁用该插件。
+
+- 参考：
+  - [指南 > Markdown > 语法扩展 > 导入代码块](../guide/markdown.md#导入代码块)
+
+#### markdown.importCode.handleImportPath
+
+- 类型： `(str: string) => string`
+
+- 默认值： `(str) => str`
+
+- 详情：
+
+  一个函数，用于处理导入代码语法中的文件导入路径。
+
+### markdown.links
+
+- 类型： `LinkPluginOptions | false`
 
 - 详情：
 
   VuePress 内置的 markdown-it 链接插件的配置项。
 
-  它将会把站内链接转换为 `<RouterLink>` ，并且会在站外链接上添加额外的属性。
+  它可以把站内链接转换为 `<RouterLink>` ，并且可以在站外链接上添加额外的属性和图标。
 
   设置为 `false` 可以禁用该插件。
 
 - 参考：
   - [指南 > Markdown > 语法扩展 > 链接](../guide/markdown.md#链接)
 
-#### markdown.toc
+#### markdown.links.internalTag
+
+- 类型： `string`
+
+- 默认值： `'RouterLink'`
+
+- 详情：
+
+  内部链接所使用的标签。
+
+  默认情况下，该插件会把内部链接转换为 `<RouterLink>` 。你可以把该选项设置为 `'a'` 来禁用这个功能。
+
+#### markdown.links.externalAttrs
+
+- 类型： `Record<string, string>`
+
+- 默认值： `{ target: '_blank', rel: 'noopener noreferrer' }`
+
+- 详情：
+
+  为外部链接添加额外的属性。
+
+#### markdown.links.externalIcon
+
+- 类型： `boolean`
+
+- 默认值： `true`
+
+- 详情：
+
+  是否在外部链接的后面添加 <OutboundLink /> 图标。
+
+  你可以通过页面的 [externalIcon](./frontmatter.md#externalicon) frontmatter 来覆盖这个全局配置。
+
+### markdown.toc
 
 - 类型： `TocPluginOptions | false`
 
@@ -505,16 +574,6 @@ module.exports = {
 
   是否在开发服务器启动后打开浏览器。
 
-### evergreen
-
-- 类型： `boolean`
-
-- 默认值： `true`
-
-- 详情：
-
-  如果你的对象只有那些 “常青树” 浏览器，你可以将其设置成 `true` 。这将会禁用一些转译过程和 Polyfills ，带来更快的构建速度和更小的文件体积。
-
 ### pagePatterns
 
 - 类型： `string[]`
@@ -568,6 +627,48 @@ module.exports = {
   一个函数，用来控制哪些文件是需要生成对应的 `<link rel="prefetch">` 标签的。设置为 `true` 或者 `false` 来完全启用或禁用它。
 
   如果你将它设置为 `true` ，所有其它页面所需的文件都会被预拉取。这对于小型站点来说是十分有帮助的，因为它会大大提升页面切换的速度。但是在你的网站有很多页面时不建议你这么做。
+
+## 插件配置
+
+### plugins
+
+- 类型： `PluginConfig[]`
+
+- 详情：
+
+  要使用的插件。
+
+  该配置项接收一个数组，其中的每一个数组项是一个包含两个元素的元组：
+
+  - 第一个元素是插件名称或插件本身。它可以接收插件名称、插件简称、插件的绝对路径或插件对象。
+  - 第二个元素是插件选项。它可以接收布尔值或一个对象。设置为 `false` 可以跳过该插件。设置为 `true` 可以启用该插件但不设置任何选项。使用对象可以启用该插件并且传入选项。
+
+  为了简便起见，你可以将上述元组的第一个元素直接作为数组项，它等价于启用该插件但不设置任何选项。
+
+- 示例：
+
+```js
+module.exports = {
+  plugins: [
+    // 包含两个元素的元组
+    ['vuepress-plugin-foo', false],
+    ['bar', true],
+    [
+      path.resolve(__dirname, './path/to/local/plugin'),
+      {
+        /* 选项 */
+      },
+    ],
+    [require('vuepress-plugin-baz'), true],
+
+    // 只使用第一个元素
+    'foobar', // 等价于 ['foobar', true]
+  ],
+}
+```
+
+- 参考：
+  - [指南 > 插件](../guide/plugin.md)
 
 ## 插件 API
 

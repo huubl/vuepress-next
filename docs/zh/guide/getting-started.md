@@ -5,6 +5,11 @@
 - [Node.js v12+](https://nodejs.org/)
 - [Yarn v1 classic](https://classic.yarnpkg.com/zh-Hans/) （可选）
 
+::: tip
+- 使用 [pnpm](https://pnpm.io/zh/) 时，你需要在 [`.npmrc`](https://pnpm.io/zh/npmrc#shamefully-hoist) 文件中设置 `shamefully-hoist=true` 。
+- 使用 [yarn 2](https://yarnpkg.com/) 时，你需要在 [`.yarnrc.yml`](https://yarnpkg.com/configuration/yarnrc#nodeLinker) 文件中设置 `nodeLinker: 'node-modules'` 。
+:::
+
 ## 手动安装
 
 这一章节会帮助你从头搭建一个简单的 VuePress 文档网站。如果你想在一个现有项目中使用 VuePress 管理文档，从步骤 3 开始。
@@ -73,7 +78,9 @@ npm install -D vuepress@next
 - **步骤5**: 将默认的临时目录和缓存目录添加到 `.gitignore` 文件中
 
 ```bash
-echo 'node_modules\n.temp\n.cache' >> .gitignore
+echo 'node_modules' >> .gitignore
+echo '.temp' >> .gitignore
+echo '.cache' >> .gitignore
 ```
 
 - **步骤6**: 创建你的第一篇文档

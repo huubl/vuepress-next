@@ -1,6 +1,6 @@
 {
   "name": "@vuepress/plugin-medium-zoom",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.22",
   "description": "VuePress plugin - medium-zoom",
   "keywords": [
     "vuepress-plugin",
@@ -20,22 +20,22 @@
   },
   "license": "MIT",
   "author": "meteorlxy",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/node/index.js",
+  "types": "lib/node/index.d.ts",
   "files": [
-    "lib",
-    "styles"
+    "lib"
   ],
   "scripts": {
     "build": "tsc -b tsconfig.build.json",
-    "clean": "rimraf lib *.tsbuildinfo"
+    "clean": "rimraf lib *.tsbuildinfo",
+    "copy": "cpx \"src/**/*.css\" lib"
   },
   "dependencies": {
-    "@vuepress/client": "2.0.0-beta.1",
-    "@vuepress/core": "2.0.0-beta.1",
-    "@vuepress/utils": "2.0.0-beta.1",
+    "@vuepress/client": "2.0.0-beta.21",
+    "@vuepress/core": "2.0.0-beta.22",
+    "@vuepress/utils": "2.0.0-beta.21",
     "medium-zoom": "^1.0.6",
-    "vue": "^3.0.7"
+    "vue": "^3.1.4"
   },
   "publishConfig": {
     "access": "public"

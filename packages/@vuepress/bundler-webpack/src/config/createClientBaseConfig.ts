@@ -3,7 +3,7 @@ import { App } from '@vuepress/core'
 import type { WebpackBundlerOptions } from '../types'
 import { createBaseConfig } from './createBaseConfig'
 
-export const createClientBaseConfig = ({
+export const createClientBaseConfig = async ({
   app,
   options,
   isBuild,
@@ -11,22 +11,19 @@ export const createClientBaseConfig = ({
   app: App
   options: WebpackBundlerOptions
   isBuild: boolean
-}): Config => {
-  const config = createBaseConfig({
+}): Promise<Config> => {
+  const config = await createBaseConfig({
     app,
     options,
     isServer: false,
     isBuild,
   })
 
-  // client entry
-  config.entry('app').add(app.dir.client('lib/client.js'))
-
   // client output
   config.output
     .path(app.dir.dest())
     .filename(
-      app.env.isProd
+      app.env.isBuild
         ? 'assets/js/[name].[chunkhash:8].js'
         : 'assets/js/[name].js'
     )

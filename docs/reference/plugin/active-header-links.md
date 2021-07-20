@@ -1,6 +1,6 @@
 # active-header-links
 
-> @vuepress/plugin-active-header-links
+<NpmBadge package="@vuepress/plugin-active-header-links" />
 
 This plugin will listen to page scroll event. When the page scrolls to a certain _header anchor_, this plugin will change the route hash to that _header anchor_ if there is a corresponding _header link_.
 
@@ -12,7 +12,7 @@ This plugin is mainly used to develop themes, and has been integrated into the d
 
 - Type: `string`
 
-- Default: `'.sidebar-link'`
+- Default: `'a.sidebar-item'`
 
 - Details:
 

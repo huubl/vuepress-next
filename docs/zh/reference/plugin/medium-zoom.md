@@ -1,8 +1,10 @@
 # medium-zoom
 
-> @vuepress/plugin-medium-zoom
+<NpmBadge package="@vuepress/plugin-medium-zoom" />
 
 将 [medium-zoom](https://github.com/francoischalifour/medium-zoom#readme) 集成到 VuePress 中，为图片提供可缩放的功能。
+
+该插件已经集成到默认主题中。
 
 ## 配置项
 
@@ -45,12 +47,7 @@
 
 你可以通过 [zoomOptions](#zoomoptions) 对大部分的缩放样式进行自定义，不过作为补充，该插件同样提供了一些 CSS 变量：
 
-```css
-:root {
-  /* zoom 遮罩的 z-index */
-  --medium-zoom-z-index: 100;
-}
-```
+@[code css](@vuepress/plugin-medium-zoom/src/client/styles/vars.css)
 
 ## Composition API
 
@@ -68,7 +65,7 @@
 
 ```ts
 import { nextTick } from 'vue'
-import { useMediumZoom } from '@vuepress/plugin-medium-zoom/lib/composables'
+import { useMediumZoom } from '@vuepress/plugin-medium-zoom/lib/client'
 
 export default {
   setup() {

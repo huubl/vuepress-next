@@ -6,6 +6,38 @@ import type { PageData, PageFrontmatter } from '@vuepress/shared'
  */
 export interface Page extends PageData {
   /**
+   * Raw Content of the page
+   */
+  content: string
+
+  /**
+   * Rendered content of the page
+   */
+  contentRendered: string
+
+  /**
+   * Date of the page, in 'yyyy-MM-dd' format
+   *
+   * @example '2020-09-09'
+   */
+  date: string
+
+  /**
+   * Dependencies of the page
+   */
+  deps: string[]
+
+  /**
+   * Hoisted tags of the page
+   */
+  hoistedTags: string[]
+
+  /**
+   * Links of the page
+   */
+  links: MarkdownLink[]
+
+  /**
    * Path of the page that inferred from file path
    *
    * If the page does not come from a file, it would be `null`
@@ -24,14 +56,26 @@ export interface Page extends PageData {
   pathLocale: string
 
   /**
-   * Absolute path of the source file
+   * Permalink of the page
+   *
+   * If the page does not have a permalink, it would be `null`
+   */
+  permalink: string | null
+
+  /**
+   * Slug of the page
+   */
+  slug: string
+
+  /**
+   * Source file path
    *
    * If the page does not come from a file, it would be `null`
    */
   filePath: string | null
 
   /**
-   * Relative path of the source file
+   * Source file path relative to source directory
    *
    * If the page does not come from a file, it would be `null`
    */
@@ -43,17 +87,14 @@ export interface Page extends PageData {
   componentFilePath: string
 
   /**
-   * Component relative file path
+   * Component file path relative to temp directory
    */
   componentFilePathRelative: string
 
   /**
-   * Component file content that generated from the source file
-   */
-  componentFileContent: string
-
-  /**
    * Component file chunk name
+   *
+   * Only take effect in webpack
    */
   componentFileChunkName: string
 
@@ -63,46 +104,26 @@ export interface Page extends PageData {
   dataFilePath: string
 
   /**
-   * Page data relative file path
+   * Page data file path relative to temp directory
    */
   dataFilePathRelative: string
 
   /**
    * Page data file chunk name
+   *
+   * Only take effect in webpack
    */
   dataFileChunkName: string
 
   /**
-   * Page routes file path
+   * Rendered html file path
    */
-  routesFilePath: string
+  htmlFilePath: string
 
   /**
-   * Page data relative file path
+   * Rendered html file path relative to dest directory
    */
-  routesFilePathRelative: string
-
-  /**
-   * Content of the page
-   */
-  content: string
-
-  /**
-   * Links of the page
-   */
-  links: MarkdownLink[]
-
-  /**
-   * Slug of the page
-   */
-  slug: string
-
-  /**
-   * Date of the page, in 'yyyy-MM-dd' format
-   *
-   * @example '2020-09-09'
-   */
-  date: string
+  htmlFilePathRelative: string
 }
 
 /**

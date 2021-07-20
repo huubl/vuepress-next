@@ -1,42 +1,44 @@
-import { h } from 'vue'
-import type { FunctionalComponent } from 'vue'
+import { computed, defineComponent, h, resolveComponent } from 'vue'
 import { isString } from '@vuepress/shared'
 import { layoutComponents } from '@internal/layoutComponents'
 import { usePageData } from '../injections'
-import { Content } from './Content'
 
 /**
  * Global Layout
  */
-export const Vuepress: FunctionalComponent = () => {
-  // get layout of current page
-  let layoutName = '404'
+export const Vuepress = defineComponent({
+  name: 'Vuepress',
 
-  const page = usePageData()
+  setup() {
+    const page = usePageData()
 
-  if (page.value.path) {
-    // if current page exists
+    // resolve layout component
+    const layoutComponent = computed(() => {
+      // resolve layout name of current page
+      let layoutName: string
 
-    // use layout from frontmatter
-    const frontmatterLayout = page.value.frontmatter.layout
+      if (page.value.path) {
+        // if current page exists
 
-    if (isString(frontmatterLayout)) {
-      layoutName = frontmatterLayout
-    } else {
-      // fallback to Layout component
-      layoutName = 'Layout'
-    }
-  }
+        // use layout from frontmatter
+        const frontmatterLayout = page.value.frontmatter.layout
 
-  const layoutComponent = layoutComponents[layoutName]
+        if (isString(frontmatterLayout)) {
+          layoutName = frontmatterLayout
+        } else {
+          // fallback to default layout
+          layoutName = 'Layout'
+        }
+      } else {
+        // if current page does not exist
+        // use 404 layout
+        layoutName = '404'
+      }
 
-  // use layout component
-  if (layoutComponent) {
-    return h(layoutComponent)
-  }
+      // use theme layout or fallback to custom layout
+      return layoutComponents[layoutName] || resolveComponent(layoutName, false)
+    })
 
-  // fallback to Content
-  return h(Content)
-}
-
-Vuepress.displayName = 'Vuepress'
+    return () => h(layoutComponent.value)
+  },
+})

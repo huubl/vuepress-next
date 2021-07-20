@@ -3,6 +3,183 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.22](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.21...v2.0.0-beta.22) (2021-07-11)
+
+
+### Bug Fixes
+
+* **markdown:** resolve assets links in html img tags (close [#254](https://github.com/vuepress/vuepress-next/issues/254)) ([7cbb163](https://github.com/vuepress/vuepress-next/commit/7cbb163bf19cbe8e8d682ef9707c3f738486e089))
+
+
+
+
+
+# [2.0.0-beta.21](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.20...v2.0.0-beta.21) (2021-07-03)
+
+
+### Bug Fixes
+
+* **markdown:** filter permalink symbol in toc (close [#251](https://github.com/vuepress/vuepress-next/issues/251)) ([5a35806](https://github.com/vuepress/vuepress-next/commit/5a3580656336349c29abb033a3d732646e111bfd))
+
+
+
+
+
+# [2.0.0-beta.20](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2021-06-26)
+
+
+### Features
+
+* **markdown:** bump markdown-it-anchor to 8.0.4 ([41338f7](https://github.com/vuepress/vuepress-next/commit/41338f7d656bf9e692c3ff22e05e4b3c1a9cbd6f))
+
+
+### BREAKING CHANGES
+
+* **markdown:** `markdown.anchor` has changed, see changelog of markdown-it-anchor 8.0.0
+
+
+
+
+
+# [2.0.0-beta.19](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2021-06-19)
+
+**Note:** Version bump only for package @vuepress/markdown
+
+
+
+
+
+# [2.0.0-beta.18](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.17...v2.0.0-beta.18) (2021-06-12)
+
+
+### Features
+
+* **markdown:** add extract-title plugin ([e0a1556](https://github.com/vuepress/vuepress-next/commit/e0a1556a1469cd71469f5c81e2d058a5e9b9d801))
+
+
+
+
+
+# [2.0.0-beta.15](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2021-05-27)
+
+
+### Bug Fixes
+
+* **markdown:** decode assets link to ensure bundler can find the file ([#144](https://github.com/vuepress/vuepress-next/issues/144)) ([d3e5409](https://github.com/vuepress/vuepress-next/commit/d3e5409246a47edae93209c9ce5dd2614e14c936))
+
+
+
+
+
+# [2.0.0-beta.13](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2021-05-06)
+
+
+### Bug Fixes
+
+* **markdown:** ensure ending newline in import code ([160df2d](https://github.com/vuepress/vuepress-next/commit/160df2de1567a3b6b3e889b86e6bd7b95a3cc77b))
+
+
+### Features
+
+* **markdown:** allow omitting start or end of import code lines range ([21bba5c](https://github.com/vuepress/vuepress-next/commit/21bba5c86bc8e8dec1c86f820e9de27cf15919b2))
+
+
+
+
+
+# [2.0.0-beta.12](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2021-04-30)
+
+
+### Features
+
+* **core:** make filePath available in markdown env ([aa52549](https://github.com/vuepress/vuepress-next/commit/aa52549648b175626d3eafabe8629a78a8caf8e5))
+* **markdown:** support import code blocks (close [#15](https://github.com/vuepress/vuepress-next/issues/15)) ([fe20ccc](https://github.com/vuepress/vuepress-next/commit/fe20cccf3d44565c7fcb890e8ebf2aa4659ab3e1))
+
+
+
+
+
+# [2.0.0-beta.11](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2021-04-28)
+
+**Note:** Version bump only for package @vuepress/markdown
+
+
+
+
+
+# [2.0.0-beta.10](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2021-04-27)
+
+
+### Features
+
+* **markdown:** support externalIcon in config and frontmatter ([#122](https://github.com/vuepress/vuepress-next/issues/122)) ([d1389bc](https://github.com/vuepress/vuepress-next/commit/d1389bc6c0eee3ad2fe83d5636fd293d0710e0fb))
+
+
+
+
+
+# [2.0.0-beta.9](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2021-04-21)
+
+
+### Bug Fixes
+
+* **markdown:** do not escape extracted headers (close [#117](https://github.com/vuepress/vuepress-next/issues/117)) ([81b1336](https://github.com/vuepress/vuepress-next/commit/81b133622a00e6474f0bfe4a58e35bfab9fe3e49))
+
+
+### Features
+
+* **core:** make frontmatter available in markdown env ([f977192](https://github.com/vuepress/vuepress-next/commit/f97719237db9d14c94716bf6b18fe52519a008cf))
+
+
+
+
+
+# [2.0.0-beta.8](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2021-04-11)
+
+
+### Features
+
+* **markdown:** support internalTag option in links plugin ([1872ad9](https://github.com/vuepress/vuepress-next/commit/1872ad95d7c86247883c24f2ec86db07d7596923))
+
+
+
+
+
+# [2.0.0-beta.7](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2021-04-09)
+
+**Note:** Version bump only for package @vuepress/markdown
+
+
+
+
+
+# [2.0.0-beta.5](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2021-03-26)
+
+
+### Bug Fixes
+
+* **markdown:** avoid wrapping highlighted code with multiple pre ([f0b3872](https://github.com/vuepress/vuepress-next/commit/f0b38722f1a06c736366a36d7c4888952d28c947))
+
+
+
+
+
+# [2.0.0-beta.4](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2021-03-20)
+
+
+### Code Refactoring
+
+* **markdown:** remove default syntax highlighter ([4a1abe3](https://github.com/vuepress/vuepress-next/commit/4a1abe39335eaaf3ef1dca3e35a324b12981c0d2))
+
+
+### BREAKING CHANGES
+
+* **markdown:** prismjs is no longer the default syntax highlighter
+
+
+
+
+
 # [2.0.0-beta.1](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.0...v2.0.0-beta.1) (2021-03-13)
 
 **Note:** Version bump only for package @vuepress/markdown

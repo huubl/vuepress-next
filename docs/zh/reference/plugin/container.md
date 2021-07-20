@@ -1,6 +1,6 @@
 # container
 
-> @vuepress/plugin-container
+<NpmBadge package="@vuepress/plugin-container" />
 
 为你的 VuePress 站点注册自定义容器。
 
@@ -19,6 +19,10 @@
 - `type` 是必需的，应通过 [type](#type) 配置项来指定。
 - `info` 是可选的，其默认值可以通过 [locales](#locales) 的 `defaultInfo` 配置项来指定。
 - `content` 可是任何合法的 Markdown 内容。
+
+::: tip
+该插件可以被多次使用，以便支持不同类型的容器。
+:::
 
 ## 配置项
 

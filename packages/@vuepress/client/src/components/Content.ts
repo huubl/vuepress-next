@@ -1,26 +1,26 @@
 import { h } from 'vue'
 import type { FunctionalComponent } from 'vue'
-import { pagesComponent } from '@internal/pagesComponent'
+import { pagesComponents } from '@internal/pagesComponents'
 import { usePageData } from '../injections'
 
 /**
  * Markdown rendered content
  */
 export const Content: FunctionalComponent<{
-  pagePath?: string
+  pageKey?: string
 }> = (props) => {
   let key: string
 
   // use the page key from props directly
-  if (props.pagePath) {
-    key = props.pagePath
+  if (props.pageKey) {
+    key = props.pageKey
   } else {
     // get current page key from page data
     const page = usePageData()
-    key = page.value.path
+    key = page.value.key
   }
 
-  const component = pagesComponent[key]
+  const component = pagesComponents[key]
 
   // use page component
   if (component) {
@@ -39,7 +39,7 @@ export const Content: FunctionalComponent<{
 Content.displayName = 'Content'
 
 Content.props = {
-  pagePath: {
+  pageKey: {
     type: String,
     required: false,
   },

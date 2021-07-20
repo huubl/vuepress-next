@@ -1,5 +1,7 @@
 # 配置
 
+<NpmBadge package="@vuepress/theme-default" />
+
 默认主题配置的参考文档，可以通过 [themeConfig](../config.md#themeconfig) 来设置这些配置。
 
 ## 基础配置
@@ -54,7 +56,7 @@
 
   为了配置导航栏元素，你可以将其设置为 _导航栏数组_ ，其中的每个元素是 `NavbarItem` 对象、 `NavbarGroup` 对象、或者字符串：
 
-  - `NavbarItem` 对象应该有一个 `text` 字段和一个 `link` 字段。
+  - `NavbarItem` 对象应该有一个 `text` 字段和一个 `link` 字段，还有一个可选的 `activeMatch` 字段。
   - `NavbarGroup` 对象应该有一个 `text` 字段和一个 `children` 字段。 `children` 字段同样是一个 _导航栏数组_ 。
   - 字符串应为目标页面文件的路径。它将会被转换为 `NavbarItem` 对象，将页面标题作为 `text` ，将页面路由路径作为 `link` 。
 
@@ -97,6 +99,25 @@ module.exports = {
           },
         ],
       },
+      // 控制元素何时被激活
+      {
+        text: 'Group 2',
+        children: [
+          {
+            text: 'Always active',
+            link: '/',
+            // 该元素将一直处于激活状态
+            activeMatch: '/',
+          },
+          {
+            text: 'Active on /foo/',
+            link: '/not-foo/',
+            // 该元素在当前路由路径是 /foo/ 开头时激活
+            // 支持正则表达式
+            activeMatch: '^/foo/',
+          },
+        ],
+      },
     ],
   },
 }
@@ -128,6 +149,18 @@ module.exports = {
 - 参考：
   - [指南 > 静态资源 > Public 文件](../../guide/assets.md#public-文件)
 
+### darkMode
+
+- 类型： `boolean`
+
+- 默认值： `true`
+
+- 详情：
+
+  是否启用切换夜间模式的功能。
+
+  如果设置为 `true` ，将会在导航栏展示一个切换夜间模式的按钮，并会根据 [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme) 自动设置初始模式。
+
 ### repo
 
 - 类型： `string`
@@ -144,7 +177,7 @@ module.exports = {
     // 如果你按照 `organization/repository` 的格式设置它
     // 我们会将它作为一个 GitHub 仓库
     repo: 'vuejs/vuepress',
-    // 如果你使用的不是 GitHub ，可以直接使用 URL
+    // 你也可以直接将它设置为一个 URL
     repo: 'https://gitlab.com/foo/bar',
   },
 }
@@ -233,11 +266,10 @@ module.exports = {
 
   如果你设置为 `'auto'`，侧边栏会根据页面标题自动生成。
 
-  为了手动配置侧边栏元素，你可以将其设置为 _侧边栏数组_ ，其中的每个元素是 `SidebarItem` 对象、 `SidebarGroup` 对象、或者字符串：
+  为了手动配置侧边栏元素，你可以将其设置为 _侧边栏数组_ ，其中的每个元素是一个 `SidebarItem` 对象或者一个字符串：
 
-  - `SidebarItem` 对象应该有一个 `text` 字段、一个 `link` 字段和一个 `children` 字段。 `children` 字段是一个由 `SidebarItem` 或者字符串组成的数组。
-  - `SidebarGroup` 对象应将 `isGroup` 字段设为 `true` ，并且应该有一个 `text` 字段和一个`children` 字段。 `children` 字段是一个由 `SidebarItem` 或者字符串组成的数组。
-  - 字符串应为目标页面文件的路径。它将会被转换为 `SidebarItem` 对象，将页面标题作为 `text` ，将页面路由路径作为 `link` ，并根据页面标题自动生成 `children` 。
+  - `SidebarItem` 对象应该有一个 `text` 字段，有一个可选的 `link` 字段和一个可选的 `children` 字段。 `children` 字段同样是一个 _侧边栏数组_ 。
+  - 字符串应为目标页面文件的路径。它将会被转换为 `SidebarItem` 对象，将页面标题作为 `text` ，将页面路由路径作为 `link` ，并根据页面小标题自动生成 `children` 。
 
   如果你想在不同子路径中使用不同的侧边栏，你可以将该配置项设置为 _侧边栏对象_ ：
 
@@ -267,12 +299,6 @@ module.exports = {
           '/foo/bar.md',
         ],
       },
-      // SidebarGroup
-      {
-        isGroup: true,
-        text: 'Group',
-        children: ['/group/foo.md', '/group/bar.md'],
-      },
       // 字符串 - 页面文件路径
       '/bar/README.md',
     ],
@@ -290,14 +316,12 @@ module.exports = {
     sidebar: {
       '/guide/': [
         {
-          isGroup: true,
           text: 'Guide',
           children: ['/guide/README.md', '/guide/getting-started.md'],
         },
       ],
       '/reference/': [
         {
-          isGroup: true,
           text: 'Reference',
           children: ['/reference/cli.md', '/reference/config.md'],
         },
@@ -306,6 +330,27 @@ module.exports = {
   },
 }
 ```
+
+### sidebarDepth
+
+- 类型： `number`
+
+- 默认值： `2`
+
+- 详情：
+
+  设置根据页面标题自动生成的侧边栏的最大深度。
+
+  - 设为 `0` 来禁用所有级别的页面标题。
+  - 设为 `1` 来包含 `<h2>` 标题。
+  - 设为 `2` 来包含 `<h2>` 和 `<h3>` 标题。
+  - ...
+
+  最大值取决于你通过 [markdown.extractHeaders.level](../config.md#markdown-extractheaders) 提取了哪些级别的标题。
+
+  由于 `markdown.extractHeaders.level` 的默认值是 `[2, 3]` ，因此 `sidebarDepth` 的默认最大值是 `2` 。
+
+  你可以通过页面的 [sidebarDepth](./frontmatter.md#sidebardepth) frontmatter 来覆盖这个全局配置。
 
 ### editLink
 
@@ -339,14 +384,14 @@ module.exports = {
 
   它将会用于生成 _编辑此页_ 的链接。
 
-  如果你不设置该选项，则会根据 [docsRepo](#docsrepo) 配置项来推断 Pattern 。但是如果你的文档仓库没有托管在常用的平台上，比如 GitHub 、 GitLab 、 Bitbucket 等，那么你必须设置该选项才能使 _编辑此页_ 链接正常工作。
+  如果你不设置该选项，则会根据 [docsRepo](#docsrepo) 配置项来推断 Pattern 。但是如果你的文档仓库没有托管在常用的平台上，比如 GitHub 、 GitLab 、 Bitbucket 、 Gitee 等，那么你必须设置该选项才能使 _编辑此页_ 链接正常工作。
 
 - 用法：
 
-  |  Pattern  |         描述                                                   |
-  |-----------|----------------------------------------------------------------|
-  | `:repo`   | 文档仓库 URL ，即 [docsRepo](#docsrepo)                         |
-  | `:branch` | 文档仓库分支 ，即 [docsBranch](#docsbranch)                     |
+  | Pattern   | 描述                                                              |
+  | --------- | ----------------------------------------------------------------- |
+  | `:repo`   | 文档仓库 URL ，即 [docsRepo](#docsrepo)                           |
+  | `:branch` | 文档仓库分支 ，即 [docsBranch](#docsbranch)                       |
   | `:path`   | 页面源文件的路径，即 [docsDir](#docsdir) 拼接上页面文件的相对路径 |
 
 - 示例：
@@ -362,7 +407,7 @@ module.exports = {
 }
 ```
 
-  则会生成类似于 `'https://gitlab.com/owner/name/-/edit/master/docs/path/to/file.md'` 的链接。
+则会生成类似于 `'https://gitlab.com/owner/name/-/edit/master/docs/path/to/file.md'` 的链接。
 
 ### docsRepo
 
@@ -472,7 +517,7 @@ module.exports = {
 
 - 类型： `string`
 
-- 默认值： `'WARNING'`
+- 默认值： `'DANGER'`
 
 - 详情：
 
@@ -512,7 +557,19 @@ module.exports = {
 
   它主要是为了站点的可访问性 (a11y) 。
 
-## 插件
+### toggleDarkMode
+
+- 类型： `string`
+
+- 默认值： `'toggle dark mode'`
+
+- 详情：
+
+  切换夜间模式按钮的标题文字。
+
+  它主要是为了站点的可访问性 (a11y) 。
+
+## 插件配置
 
 ### themePlugins
 
@@ -522,7 +579,7 @@ module.exports = {
 
   默认主题使用了一些插件，如果你确实不需要该插件，你可以选择禁用它。在禁用插件之前，请确保你已了解它的用途。
 
-#### themePlugins.activeHeaderLinks
+### themePlugins.activeHeaderLinks
 
 - 类型： `boolean`
 
@@ -542,7 +599,7 @@ module.exports = {
 
   是否启用 [@vuepress/plugin-back-to-top](../plugin/back-to-top.md) 。
 
-#### themePlugins.container
+### themePlugins.container
 
 - 类型： `Record<ContainerType, boolean>`
 
@@ -562,7 +619,7 @@ module.exports = {
 - 参考：
   - [默认主题 > Markdown > 自定义容器](./markdown.md#自定义容器)
 
-#### themePlugins.git
+### themePlugins.git
 
 - 类型： `boolean`
 
@@ -572,7 +629,7 @@ module.exports = {
 
   是否启用 [@vuepress/plugin-git](../plugin/git.md) 。
 
-#### themePlugins.mediumZoom
+### themePlugins.mediumZoom
 
 - 类型： `boolean`
 
@@ -582,7 +639,7 @@ module.exports = {
 
   是否启用 [@vuepress/plugin-medium-zoom](../plugin/medium-zoom.md) 。
 
-#### themePlugins.nprogress
+### themePlugins.nprogress
 
 - 类型： `boolean`
 

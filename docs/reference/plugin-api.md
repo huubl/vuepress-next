@@ -1,10 +1,15 @@
 # Plugin API
 
+<NpmBadge package="@vuepress/core" />
+
+Plugin API is supported by [@vuepress/core](https://www.npmjs.com/package/@vuepress/core) package. You could check out [Node API](./node-api.md) for how to use the VuePress app instance in plugin hooks.
+
+## Overview
+
 Plugins should be used before initialization. The basic options will be handled once the plugin is used:
 
 - [name](#name)
 - [multiple](#multiple)
-- [plugins](#plugins)
 
 The following hooks will be processed when initializing app:
 
@@ -26,6 +31,8 @@ The following hooks will be processed in dev / build:
 - [define](#define)
 - [onWatched](#onwatched)
 - [onGenerated](#ongenerated)
+
+> Check out [Advanced > Architecture > Core Process and Hooks](../advanced/architecture.md#core-process-and-hooks) to understand the process better.
 
 ## Basic Options
 
@@ -64,43 +71,6 @@ The following hooks will be processed in dev / build:
 - Also see:
   - [Plugin API > name](#name)
 
-### plugins
-
-- Type: `PluginConfig[]`
-
-- Details:
-
-  Plugins to use.
-
-  A plugin can use other plugins via this option.
-
-  This option accepts an array, each item of which is a two-element tuple:
-
-  - The first element is the plugin name or the plugin itself. It accepts plugin name, plugin name shorthand, absolute path to plugin, or the plugin object.
-  - The second element is the plugin options. It accepts boolean or object. Set it to `false` to disable the plugin. Set it to `true` to enable the plugin without any options. Use object to enable the plugin with options.
-
-  For simplicity, you can use the first element of the tuple that described above as the array item, which equals enabling the plugin without any options.
-
-- Example:
-
-```js
-module.exports = {
-  plugins: [
-    // two-element tuple
-    ['vuepress-plugin-foo', false],
-    ['bar', true],
-    ['/path/to/local/plugin', { /* options */ }],
-    [require('vuepress-plugin-baz'), true],
-
-    // only use the first element
-    'foobar', // equals to ['foobar', true]
-  ],
-}
-```
-
-- Also see:
-  - [Guide > Plugin](../guide/plugin.md)
-
 ## Development Hooks
 
 ### alias
@@ -118,7 +88,7 @@ module.exports = {
 ```js
 module.exports = {
   alias: {
-    '@alias': '/path/to/alias',
+    '@alias': path.resolve(__dirname, './path/to/alias'),
   },
 }
 ```
@@ -149,7 +119,7 @@ module.exports = {
 
 ### extendsMarkdown
 
-- Type: `(md: Markdown, app: App) => void`
+- Type: `(md: Markdown, app: App) => void | Promise<void>`
 
 - Details:
 
@@ -172,13 +142,13 @@ module.exports = {
 
 ### extendsPageOptions
 
-- Type: `(filePath: string, app: App) => PageOptions | Promise<PageOptions>`
+- Type: `(options: PageOptions, app: App) => PageOptions | Promise<PageOptions>`
 
 - Details:
 
   Page options extension.
 
-  This hook accepts a function that will receive the relative file path of the page. The returned object will be merged into page options, which will be used to create the page.
+  This hook accepts a function that will receive the raw options of the page. The returned object will be merged into page options, which will be used to create the page.
 
 - Example:
 
@@ -186,8 +156,8 @@ Set permalink pattern for pages in `_posts` directory:
 
 ```js
 module.exports = {
-  extendsPageOptions: (filePath) => {
-    if (filePath.startsWith('_posts/')) {
+  extendsPageOptions: ({ filePath }) => {
+    if (filePath?.startsWith('_posts/')) {
       return {
         frontmatter: {
           permalinkPattern: '/:year/:month/:day/:slug.html',
@@ -245,13 +215,21 @@ export default {
 
   This hook accepts absolute file paths, or a function that returns the paths.
 
+  Files listed in this hook will be invoked after the client app is created to make some enhancement to it.
+
 - Example:
 
 ```js
+const { path } = require('@vuepress/utils')
+
 module.exports = {
-  clientAppEnhanceFiles: '/path/to/clientAppEnhance.js',
+  clientAppEnhanceFiles: path.resolve(__dirname, './path/to/clientAppEnhance.js'),
 }
 ```
+
+- Also see:
+  - [Client API > defineClientAppEnhance](./client-api.md#defineclientappenhance)
+  - [Cookbook > Usage of Client App Enhance](../advanced/cookbook/usage-of-client-app-enhance.md)
 
 ### clientAppRootComponentFiles
 
@@ -263,11 +241,15 @@ module.exports = {
 
   This hook accepts absolute file paths, or a function that returns the paths.
 
+  Components listed in this hook will be rendered to the root node of the client app.
+
 - Example:
 
 ```js
+const { path } = require('@vuepress/utils')
+
 module.exports = {
-  clientAppRootComponentFiles: '/path/to/RootComponent.vue',
+  clientAppRootComponentFiles: path.resolve(__dirname, './path/to/RootComponent.vue'),
 }
 ```
 
@@ -281,13 +263,20 @@ module.exports = {
 
   This hook accepts absolute file paths, or a function that returns the paths.
 
+  Files listed in this hook will be invoked in the [setup](https://v3.vuejs.org/guide/composition-api-setup.html) function of the client app.
+
 - Example:
 
 ```js
+const { path } = require('@vuepress/utils')
+
 module.exports = {
-  clientAppSetupFiles: '/path/to/clientAppSetup.js',
+  clientAppSetupFiles: path.resolve(__dirname, './path/to/clientAppSetup.js'),
 }
 ```
+
+- Also see:
+  - [Client API > defineClientAppSetup](./client-api.md#defineclientappsetup)
 
 ## Lifecycle Hooks
 

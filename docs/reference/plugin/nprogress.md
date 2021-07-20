@@ -8,16 +8,14 @@ title: nprogress
 
 # nprogress Plugin
 
-> @vuepress/plugin-nprogress
+<NpmBadge package="@vuepress/plugin-nprogress" />
 
 Integrate [nprogress](https://github.com/rstacruz/nprogress) into VuePress, which can provide a progress bar when navigating to another page.
+
+This plugin has been integrated into the default theme.
 
 ## Styles
 
 You can customize the style of the progress bar via CSS variables:
 
-```css
-:root {
-  --nprogress-color: #29d;
-}
-```
+@[code css](@vuepress/plugin-nprogress/src/client/styles/vars.css)

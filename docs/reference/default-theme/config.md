@@ -1,5 +1,7 @@
 # Config
 
+<NpmBadge package="@vuepress/theme-default" />
+
 Reference of default theme config, which can be set via [themeConfig](../config.md#themeconfig).
 
 ## Basic Config
@@ -16,7 +18,7 @@ Reference of default theme config, which can be set via [themeConfig](../config.
 
   All the options inside the [Locale Config](#locale-config) section can be used in locales.
 
-  This options will only take effect in default theme, so don't confuse with `locales` in [Site Config](../config.md#locales). 
+  This option will only take effect in default theme, so don't confuse with `locales` in [Site Config](../config.md#locales).
 
 - Also see:
   - [Guide > I18n](../../guide/i18n.md)
@@ -54,7 +56,7 @@ Config of this section can be used as normal config, and can also be used in the
 
   To configure the navbar items, you can set it to a _navbar array_, each item of which could be a `NavbarItem` object, a `NavbarGroup` object, or a string:
 
-  - A `NavbarItem` object should have a `text` field and a `link` field.
+  - A `NavbarItem` object should have a `text` field and a `link` field, could have an optional `activeMatch` field.
   - A `NavbarGroup` object should have a `text` field and a `children` field. The `children` field should be a _navbar array_, too.
   - A string should be the path to the target page file. It will be converted to a `NavbarItem` object, using the page title as `text`, and the page route path as `link`.
 
@@ -97,6 +99,25 @@ module.exports = {
           },
         ],
       },
+      // control when should the item be active
+      {
+        text: 'Group 2',
+        children: [
+          {
+            text: 'Always active',
+            link: '/',
+            // this item will always be active
+            activeMatch: '/',
+          },
+          {
+            text: 'Active on /foo/',
+            link: '/not-foo/',
+            // this item will be active when current route path starts with /foo/
+            // regular expression is supported
+            activeMatch: '^/foo/',
+          },
+        ],
+      },
     ],
   },
 }
@@ -128,6 +149,18 @@ module.exports = {
 - Also see:
   - [Guide > Assets > Public Files](../../guide/assets.md#public-files)
 
+### darkMode
+
+- Type: `boolean`
+
+- Default: `true`
+
+- Details:
+
+  Enable dark mode switching or not.
+
+  If set to `true`, a button to switch dark mode will be displayed in the navbar, and the initial mode will be automatically set according to [prefers-color-scheme](https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme).
+
 ### repo
 
 - Type: `string`
@@ -144,7 +177,7 @@ module.exports = {
     // If you set it in the form of `organization/repository`
     // we will take it as a GitHub repo
     repo: 'vuejs/vuepress',
-    // Use url directly if you are not using GitHub
+    // You can also set it to a URL directly
     repo: 'https://gitlab.com/foo/bar',
   },
 }
@@ -233,10 +266,9 @@ module.exports = {
 
   If you set it to `'auto'`, the sidebar will be automatically generated from the page headers.
 
-  To configure the sidebar items manually, you can set this option to a _sidebar array_, each item of which could be a `SidebarItem` object, a `SidebarGroup` object, or a string:
+  To configure the sidebar items manually, you can set this option to a _sidebar array_, each item of which could be a `SidebarItem` object or a string:
 
-  - A `SidebarItem` object should have a `text` field, a `link` field, and a `children` field. The `children` field should be an array of `SidebarItem` or string.
-  - A `SidebarGroup` object should set `isGroup` field to `true`, and should have a `text` field and a `children` field. The `children` field should be an array of `SidebarItem` or string.
+  - A `SidebarItem` object should have a `text` field, could have an optional `link` field and an optional `children` field. The `children` field should be a _sidebar array_.
   - A string should be the path to the target page file. It will be converted to a `SidebarItem` object, whose `text` is the page title, `link` is the page route path, and `children` is automatically generated from the page headers.
 
   If you want to set different sidebar for different sub paths, you can set this option to a _sidebar object_:
@@ -267,12 +299,6 @@ module.exports = {
           '/foo/bar.md',
         ],
       },
-      // SidebarGroup
-      {
-        isGroup: true,
-        text: 'Group',
-        children: ['/group/foo.md', '/group/bar.md'],
-      },
       // string - page file path
       '/bar/README.md',
     ],
@@ -290,14 +316,12 @@ module.exports = {
     sidebar: {
       '/guide/': [
         {
-          isGroup: true,
           text: 'Guide',
           children: ['/guide/README.md', '/guide/getting-started.md'],
         },
       ],
       '/reference/': [
         {
-          isGroup: true,
           text: 'Reference',
           children: ['/reference/cli.md', '/reference/config.md'],
         },
@@ -306,6 +330,27 @@ module.exports = {
   },
 }
 ```
+
+### sidebarDepth
+
+- Type: `number`
+
+- Default: `2`
+
+- Details:
+
+  Set the maximum depth of the sidebar children which are automatically generated from the page headers.
+
+  - Set to `0` to disable all levels of headers.
+  - Set to `1` to include `<h2>` headers.
+  - Set to `2` to include `<h2>` and `<h3>` headers.
+  - ...
+
+  The max value depends on which levels of headers you have extracted via [markdown.extractHeaders.level](../config.md#markdown-extractheaders).
+
+  The default value of `markdown.extractHeaders.level` is `[2, 3]`, so the default max value of `sidebarDepth` is `2`.
+
+  You can override this global option via [sidebarDepth](./frontmatter.md#sidebardepth) frontmatter in your pages.
 
 ### editLink
 
@@ -339,12 +384,12 @@ module.exports = {
 
   This will be used for generating the _edit this page_ link.
 
-  If you don't set this option, the pattern will be inferred from the [docsRepo](#docsrepo) option. But if your documentation repository is not hosted on a common platform, for example, GitHub, GitLab, Bitbucket, etc., you have to set this option explicitly to make the _edit this page_ link work.
+  If you don't set this option, the pattern will be inferred from the [docsRepo](#docsrepo) option. But if your documentation repository is not hosted on a common platform, for example, GitHub, GitLab, Bitbucket, Gitee, etc., you have to set this option explicitly to make the _edit this page_ link work.
 
 - Usage:
 
-  |  Pattern  |         Description                                                                                 |
-  |-----------|-----------------------------------------------------------------------------------------------------|
+  | Pattern   | Description                                                                                         |
+  | --------- | --------------------------------------------------------------------------------------------------- |
   | `:repo`   | The docs repo url, i.e. [docsRepo](#docsrepo)                                                       |
   | `:branch` | The docs repo branch, i.e. [docsBranch](#docsbranch)                                                |
   | `:path`   | The path of the page source file, i.e. [docsDir](#docsdir) joins the relative path of the page file |
@@ -362,7 +407,7 @@ module.exports = {
 }
 ```
 
-  The generated link will look like `'https://gitlab.com/owner/name/-/edit/master/docs/path/to/file.md'`.
+The generated link will look like `'https://gitlab.com/owner/name/-/edit/master/docs/path/to/file.md'`.
 
 ### docsRepo
 
@@ -472,7 +517,7 @@ module.exports = {
 
 - Type: `string`
 
-- Default: `'WARNING'`
+- Default: `'DANGER'`
 
 - Details:
 
@@ -488,7 +533,7 @@ module.exports = {
 
   Specify the messages of the 404 page.
 
-  The message will be randomly picked from the array when user enter the 404 page.
+  The message will be randomly picked from the array when users enter the 404 page.
 
 ### backToHome
 
@@ -512,7 +557,19 @@ module.exports = {
 
   This is mainly for a11y purpose.
 
-## Plugins
+### toggleDarkMode
+
+- Type: `string`
+
+- Default: `'toggle dark mode'`
+
+- Details:
+
+  Title text for dark mode toggle button.
+
+  This is mainly for a11y purpose.
+
+## Plugins Config
 
 ### themePlugins
 
@@ -522,7 +579,7 @@ module.exports = {
 
   Default theme is using some plugins by default. You can disable a plugin if you really do not want to use it. Make sure you understand what the plugin is for before disabling it.
 
-#### themePlugins.activeHeaderLinks
+### themePlugins.activeHeaderLinks
 
 - Type: `boolean`
 
@@ -532,7 +589,7 @@ module.exports = {
 
   Enable [@vuepress/plugin-active-header-links](../plugin/active-header-links.md) or not.
 
-#### themePlugins.backToTop
+### themePlugins.backToTop
 
 - Type: `boolean`
 
@@ -542,7 +599,7 @@ module.exports = {
 
   Enable [@vuepress/plugin-back-to-top](../plugin/back-to-top.md) or not.
 
-#### themePlugins.container
+### themePlugins.container
 
 - Type: `Record<ContainerType, boolean>`
 
@@ -562,7 +619,7 @@ module.exports = {
 - Also see:
   - [Default Theme > Markdown > Custom Containers](./markdown.md#custom-containers)
 
-#### themePlugins.git
+### themePlugins.git
 
 - Type: `boolean`
 
@@ -572,7 +629,7 @@ module.exports = {
 
   Enable [@vuepress/plugin-git](../plugin/git.md) or not.
 
-#### themePlugins.mediumZoom
+### themePlugins.mediumZoom
 
 - Type: `boolean`
 
@@ -582,7 +639,7 @@ module.exports = {
 
   Enable [@vuepress/plugin-medium-zoom](../plugin/medium-zoom.md) or not.
 
-#### themePlugins.nprogress
+### themePlugins.nprogress
 
 - Type: `boolean`
 

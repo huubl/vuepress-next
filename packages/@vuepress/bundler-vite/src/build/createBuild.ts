@@ -1,8 +1,8 @@
 import type { OutputAsset, OutputChunk, RollupOutput } from 'rollup'
 import { build } from 'vite'
-import type { ServerEntry } from '@vuepress/client'
+import type { CreateVueAppFunction } from '@vuepress/client'
 import type { App, Bundler } from '@vuepress/core'
-import { chalk, fs, logger, ora, withSpinner } from '@vuepress/utils'
+import { chalk, fs, ora, withSpinner } from '@vuepress/utils'
 import type { ViteBundlerOptions } from '../types'
 import { renderPage } from './renderPage'
 import { resolveViteConfig } from './resolveViteConfig'
@@ -10,9 +10,6 @@ import { resolveViteConfig } from './resolveViteConfig'
 export const createBuild = (
   options: ViteBundlerOptions
 ): Bundler['build'] => async (app: App) => {
-  // empty dest directory
-  await fs.emptyDir(app.dir.dest())
-
   // vite compile
   let clientOutput!: RollupOutput
   let serverOutput!: RollupOutput
@@ -54,13 +51,15 @@ export const createBuild = (
     ) as OutputChunk
 
     // load the compiled server bundle
-    const { createServerApp } = require(app.dir.dest(
+    const { createVueApp } = require(app.dir.dest(
       '.server',
       serverEntryChunk.fileName
-    )) as ServerEntry
+    )) as {
+      createVueApp: CreateVueAppFunction
+    }
 
     // create vue ssr app
-    const { app: vueApp, router: vueRouter } = await createServerApp()
+    const { app: vueApp, router: vueRouter } = await createVueApp()
 
     // pre-render pages to html files
     const spinner = ora()
@@ -85,10 +84,4 @@ export const createBuild = (
     // remove server dest directory after pages rendered
     await fs.remove(app.dir.dest('.server'))
   }
-
-  // plugin hook: onGenerated
-  await app.pluginApi.hooks.onGenerated.process(app)
-
-  // print success log
-  logger.success('VuePress vite build successfully!')
 }

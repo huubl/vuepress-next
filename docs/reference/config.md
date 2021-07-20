@@ -1,5 +1,8 @@
 # Config
 
+<NpmBadge package="@vuepress/cli" />
+<NpmBadge package="@vuepress/core" />
+
 Reference of VuePress config, which can be set via config file. The conventional config files are (in order of precedence):
 
 - In current working directory `cwd`:
@@ -160,7 +163,7 @@ Rendered as：
 module.exports = {
   theme: 'vuepress-theme-foo',
   theme: 'bar',
-  theme: '/path/to/local/theme',
+  theme: path.resolve(__dirname, './path/to/local/theme'),
 }
 ```
 
@@ -269,10 +272,13 @@ module.exports = {
 
   Configure VuePress built-in Markdown syntax extensions.
 
+  It accepts all options of [markdown-it](https://github.com/markdown-it/markdown-it), and the following additional options.
+
 - Also see:
+  - [markdown-it > Init with presets and options](https://github.com/markdown-it/markdown-it#init-with-presets-and-options)
   - [Guide > Markdown > Syntax Extensions](../guide/markdown.md#syntax-extensions)
 
-#### markdown.anchor
+### markdown.anchor
 
 - Type: `AnchorPluginOptions | false`
 
@@ -285,7 +291,7 @@ module.exports = {
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Header Anchors](../guide/markdown.md#header-anchors)
 
-#### markdown.assets
+### markdown.assets
 
 - Type: `AssetsPluginOptions | false`
 
@@ -299,7 +305,7 @@ module.exports = {
 You should not configure it unless you understand what it is for.
 :::
 
-#### markdown.code
+### markdown.code
 
 - Type: `CodePluginOptions | false`
 
@@ -312,22 +318,7 @@ You should not configure it unless you understand what it is for.
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Code Blocks](../guide/markdown.md#code-blocks)
 
-##### markdown.code.highlight
-
-- Type: `boolean`
-
-- Default: `true`
-
-- Details:
-
-  Enable code syntax highlighting or not.
-
-  You can disable it if you want to implement client side highlighting by yourself. For example, [Prismjs](https://prismjs.com/) or [highlight.js](https://highlightjs.org/).
-
-- Also see:
-  - [Guide > Markdown > Syntax Extensions > Code Blocks > Syntax Highlighting](../guide/markdown.md#syntax-highlighting)
-
-##### markdown.code.highlightLines
+#### markdown.code.highlightLines
 
 - Type: `boolean`
 
@@ -340,20 +331,23 @@ You should not configure it unless you understand what it is for.
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Code Blocks > Line Highlighting](../guide/markdown.md#line-highlighting)
 
-##### markdown.code.lineNumbers
+#### markdown.code.lineNumbers
 
-- Type: `boolean`
+- Type: `boolean | number`
 
 - Default: `true`
 
 - Details:
 
-  Enable code line numbers or not.
+  Configure code line numbers.
+
+  - A `boolean` value is to enable line numbers or not.
+  - A `number` value is the minimum number of lines to enable line numbers. For example, if you set it to `4`, line numbers will only be enabled when your code block has at least 4 lines of code.
 
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Code Blocks > Line Numbers](../guide/markdown.md#line-numbers)
 
-##### markdown.code.preWrapper
+#### markdown.code.preWrapper
 
 - Type: `boolean`
 
@@ -365,9 +359,11 @@ You should not configure it unless you understand what it is for.
 
   The wrapper is required by the `highlightLines` and `lineNumbers`. That means, if you disable `preWrapper`, the line highlighting and line numbers will also be disabled.
 
-  You can disable it if you want to implement them in client side. For example, [Prismjs Line Highlight](https://prismjs.com/plugins/line-highlight/) or [Prismjs Line Numbers](https://prismjs.com/plugins/line-numbers/).
+::: tip
+You can disable it if you want to implement them in client side. For example, [Prismjs Line Highlight](https://prismjs.com/plugins/line-highlight/) or [Prismjs Line Numbers](https://prismjs.com/plugins/line-numbers/).
+:::
 
-##### markdown.code.vPre
+#### markdown.code.vPre
 
 - Type: `boolean`
 
@@ -380,7 +376,7 @@ You should not configure it unless you understand what it is for.
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Code Blocks > Wrap with v-pre](../guide/markdown.md#wrap-with-v-pre)
 
-#### markdown.customComponent
+### markdown.customComponent
 
 - Type: `undefined | false`
 
@@ -394,7 +390,7 @@ You should not configure it unless you understand what it is for.
 You should not configure it unless you understand what it is for.
 :::
 
-#### markdown.emoji
+### markdown.emoji
 
 - Type: `EmojiPluginOptions | false`
 
@@ -407,7 +403,7 @@ You should not configure it unless you understand what it is for.
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Emoji](../guide/markdown.md#emoji)
 
-#### markdown.extractHeaders
+### markdown.extractHeaders
 
 - Type: `ExtractHeadersPluginOptions | false`
 
@@ -415,11 +411,27 @@ You should not configure it unless you understand what it is for.
 
   Options for VuePress built-in markdown-it extract-headers plugin.
 
-  It will extract page headers to page data, which will be used for generating sidebar, table of contents, etc. For example, the sidebar of current page is auto generated from the headers that extracted by this plugin.
+  It will extract page headers to page data, which would be used for generating sidebar, table of contents, etc. For example, the sidebar of current page is auto generated from the headers that extracted by this plugin.
 
   Set to `false` to disable this plugin.
 
-#### markdown.hoistTags
+### markdown.extractTitle
+
+- Type: `undefined | false`
+
+- Details:
+
+  Options for VuePress built-in markdown-it extract-title plugin.
+
+  It will extract title to page data, which will be used as the page title.
+
+  Set to `false` to disable this plugin.
+
+::: danger
+You should not configure it unless you understand what it is for.
+:::
+
+### markdown.hoistTags
 
 - Type: `HoistTagsPluginOptions | false`
 
@@ -432,9 +444,32 @@ You should not configure it unless you understand what it is for.
   Set to `false` to disable this plugin.
 
 - Also see:
-  - [Advanced > Markdown and Vue SFC](../guide/advanced/markdown.md)
+  - [Cookbook > Markdown and Vue SFC](../advanced/cookbook/markdown-and-vue-sfc.md)
 
-#### markdown.links
+### markdown.importCode
+
+- Type: `ImportCodePluginOptions | false`
+
+- Details:
+
+  Options for VuePress built-in markdown-it import-code plugin.
+
+  Set to `false` to disable this plugin.
+
+- Also see:
+  - [Guide > Markdown > Syntax Extensions > Import Code Blocks](../guide/markdown.md#import-code-blocks)
+
+#### markdown.importCode.handleImportPath
+
+- Type: `(str: string) => string`
+
+- Default: `(str) => str`
+
+- Details:
+
+  A function to handle the import path of the import code syntax.
+
+### markdown.links
 
 - Type: `LinksPluginOptions | false`
 
@@ -442,14 +477,48 @@ You should not configure it unless you understand what it is for.
 
   Options for VuePress built-in markdown-it links plugin.
 
-  It will convert internal links to `<RouterLink>`, and add extra attributes to external links.
+  It will convert internal links to `<RouterLink>`, and add extra attributes and icon to external links.
 
   Set to `false` to disable this plugin.
 
 - Also see:
   - [Guide > Markdown > Syntax Extensions > Links](../guide/markdown.md#links)
 
-#### markdown.toc
+#### markdown.links.internalTag
+
+- Type: `'a' | 'RouterLink'`
+
+- Default: `'RouterLink'`
+
+- Details:
+
+  Tag for internal links.
+
+  By default, this plugin will transform internal links to `<RouterLink>`. You can set this option to `'a'` to disable this feature.
+
+#### markdown.links.externalAttrs
+
+- Type: `Record<string, string>`
+
+- Default: `{ target: '_blank', rel: 'noopener noreferrer' }`
+
+- Details:
+
+  Additional attributes for external links.
+
+#### markdown.links.externalIcon
+
+- Type: `boolean`
+
+- Default: `true`
+
+- Details:
+
+  Whether to append an <OutboundLink /> icon to external links.
+
+  You can override this global option via [externalIcon](./frontmatter.md#externalicon) frontmatter in your pages.
+
+### markdown.toc
 
 - Type: `TocPluginOptions | false`
 
@@ -506,16 +575,6 @@ You should not configure it unless you understand what it is for.
 
   Whether to open the browser after dev-server had been started.
 
-### evergreen
-
-- Type: `boolean`
-
-- Default: `true`
-
-- Details:
-
-  Set to `true` if you are only targeting evergreen browsers. This will disable some transpilation and polyfills, and result in faster builds and smaller files.
-
 ### pagePatterns
 
 - Type: `string[]`
@@ -569,6 +628,48 @@ You should not configure it unless you understand what it is for.
   A function to control what files should have `<link rel="prefetch">` resource hints generated. Set to `true` or `false` to enable or disable for all files.
 
   If you set it to `true`, all files that required by other pages will be prefetched. This is good for small sites, which will speed up the navigation, but it might not be a good idea if you have lots of pages in your site.
+
+## Plugin Config
+
+### plugins
+
+- Type: `PluginConfig[]`
+
+- Details:
+
+  Plugins to use.
+
+  This option accepts an array, each item of which is a two-element tuple:
+
+  - The first element is the plugin name or the plugin itself. It accepts plugin name, plugin name shorthand, absolute path to plugin, or the plugin object.
+  - The second element is the plugin options. It accepts boolean or object. Set it to `false` to skip the plugin. Set it to `true` to enable the plugin without any options. Use object to enable the plugin with options.
+
+  For simplicity, you can use the first element of the tuple that described above as the array item, which equals enabling the plugin without any options.
+
+- Example:
+
+```js
+module.exports = {
+  plugins: [
+    // two-element tuple
+    ['vuepress-plugin-foo', false],
+    ['bar', true],
+    [
+      path.resolve(__dirname, './path/to/local/plugin'),
+      {
+        /* options */
+      },
+    ],
+    [require('vuepress-plugin-baz'), true],
+
+    // only use the first element
+    'foobar', // equals to ['foobar', true]
+  ],
+}
+```
+
+- Also see:
+  - [Guide > Plugin](../guide/plugin.md)
 
 ## Plugin API
 

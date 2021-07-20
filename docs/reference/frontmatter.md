@@ -1,5 +1,8 @@
 # Frontmatter
 
+<NpmBadge package="@vuepress/client" />
+<NpmBadge package="@vuepress/markdown" />
+
 ## lang
 
 - Type: `string`
@@ -162,4 +165,38 @@ permalinkPattern: :year/:month/:day/:slug.html
 
   Layout for the page.
 
-  Layouts are provided by theme. If you don't specify this frontmatter, the default layout will be used. A theme may provide other layouts, and you should refer to the theme documentation for detailed guide.
+  Layouts are provided by theme. If you don't specify this frontmatter, the default layout will be used. You should refer to the theme's own documentation to find what layouts it provides.
+
+  If the theme layouts cannot meet your needs, you can use a custom layout component.
+
+- Example:
+
+Register a layout component in `.vuepress/clientAppEnhance.ts` file:
+
+```ts
+import { defineClientAppEnhance } from '@vuepress/client'
+import CustomLayout from './CustomLayout.vue'
+
+export default defineClientAppEnhance(({ app }) => {
+  app.component('CustomLayout', CustomLayout)
+})
+```
+
+Set custom layout in frontmatter:
+
+```md
+---
+layout: CustomLayout
+---
+```
+
+## externalIcon
+
+- Type: `boolean`
+
+- Details:
+
+  Whether to append an <OutboundLink /> icon to external links in current page.
+
+- Also see:
+  - [Config > markdown.links.externalIcon](./config.md#markdown-links-externalicon)

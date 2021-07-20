@@ -6,7 +6,7 @@ With the help of [Plugin API](../reference/plugin-api.md), VuePress plugin can p
 
 Community users have created lots of plugins and published them to [NPM](https://www.npmjs.com/search?q=keywords:vuepress-plugin). VuePress team also maintains some official plugins under the [@vuepress](https://www.npmjs.com/search?q=%40vuepress%20keywords%3Aplugin) scope. You should check the plugin's own documentation for detailed guide.
 
-In general, you need to specify the name of the plugin to use in [plugins](../reference/plugin-api.md#plugins) option:
+In general, you need to specify the name of the plugin to use in [plugins](../reference/config.md#plugins) option:
 
 ```js
 module.exports = {
@@ -25,6 +25,12 @@ You can use either plugin name or its shorthand:
 | `@org/vuepress-plugin-bar`| `@org/bar`          |
 | `@vuepress/plugin-foobar` | `@vuepress/foobar`  |
 
+::: tip
+Most plugins can only be used once. If the same plugin is used multiple times, only the last one will take effect.
+
+However, some plugins can be used multiple times (e.g. [@vuepress/plugin-container](../reference/plugin/container.md)), and you should check the documentation of the plugin itself for detailed guide.
+:::
+
 ## Local Plugin
 
 If you want to use your own plugin but don't want to publish it, you can create a local plugin.
@@ -36,10 +42,10 @@ But if you have too many things to do in your config file, it's better to extrac
 ```js
 module.exports = {
   plugins: [
-    '/path/to/your-plugin.js',
+    path.resolve(__dirname, './path/to/your-plugin.js'),
     require('./another-plugin'),
   ],
 }
 ```
 
-You can refer to [Advanced > Writing a Plugin](./advanced/plugin.md) for how to write your own plugin.
+You can refer to [Advanced > Writing a Plugin](../advanced/plugin.md) for how to write your own plugin.

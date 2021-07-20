@@ -5,6 +5,11 @@
 - [Node.js v12+](https://nodejs.org/)
 - [Yarn v1 classic](https://classic.yarnpkg.com/en/) (Optional)
 
+::: tip
+- With [pnpm](https://pnpm.io/), you need to set `shamefully-hoist=true` in your [`.npmrc`](https://pnpm.io/npmrc#shamefully-hoist) file.
+- With [yarn 2](https://yarnpkg.com/), you need to set `nodeLinker: 'node-modules'` in your [`.yarnrc.yml`](https://yarnpkg.com/configuration/yarnrc#nodeLinker) file.
+:::
+
 ## Manual Installation
 
 This section will help you build a basic VuePress documentation site from ground up. If you already have an existing project and would like to keep documentation inside the project, start from Step 3.
@@ -72,7 +77,9 @@ npm install -D vuepress@next
 - **Step 5**: Add the default temp and cache directory to `.gitignore` file
 
 ```bash
-echo 'node_modules\n.temp\n.cache' >> .gitignore
+echo 'node_modules' >> .gitignore
+echo '.temp' >> .gitignore
+echo '.cache' >> .gitignore
 ```
 
 - **Step 6**: Create your first document

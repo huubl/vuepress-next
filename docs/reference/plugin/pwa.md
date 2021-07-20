@@ -1,6 +1,6 @@
 # pwa
 
-> @vuepress/plugin-pwa
+<NpmBadge package="@vuepress/plugin-pwa" />
 
 Make your VuePress site a [Progressive Web Application (PWA)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps).
 
@@ -116,7 +116,7 @@ But if you omit `skipWaiting` or set it to `false`, you have to activate the new
 - Example:
 
 ```ts
-import { usePwaEvent } from '@vuepress/plugin-pwa/lib/composables'
+import { usePwaEvent } from '@vuepress/plugin-pwa/lib/client'
 
 export default {
   setup() {
@@ -146,7 +146,7 @@ export default {
 import {
   usePwaEvent,
   useSkipWaiting,
-} from '@vuepress/plugin-pwa/lib/composables'
+} from '@vuepress/plugin-pwa/lib/client'
 
 export default {
   setup() {

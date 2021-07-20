@@ -1,6 +1,6 @@
 # theme-data
 
-> @vuepress/plugin-theme-data
+<NpmBadge package="@vuepress/plugin-theme-data" />
 
 Provide client data for your theme, with VuePress [i18n](../../guide/i18n.md) support.
 
@@ -61,8 +61,8 @@ The theme data object will be processed by `JSON.stringify()` before forwarding 
 - Example:
 
 ```ts
-import { useThemeData } from '@vuepress/plugin-theme-data/lib/composables'
-import type { ThemeData } from '@vuepress/plugin-theme-data'
+import { useThemeData } from '@vuepress/plugin-theme-data/lib/client'
+import type { ThemeData } from '@vuepress/plugin-theme-data/lib/client'
 
 type MyThemeData = ThemeData<{
   foo: string
@@ -87,8 +87,8 @@ export default {
 - Example:
 
 ```ts
-import { useThemeLocaleData } from '@vuepress/plugin-theme-data/lib/composables'
-import type { ThemeData } from '@vuepress/plugin-theme-data'
+import { useThemeLocaleData } from '@vuepress/plugin-theme-data/lib/client'
+import type { ThemeData } from '@vuepress/plugin-theme-data/lib/client'
 
 type MyThemeData = ThemeData<{
   foo: string

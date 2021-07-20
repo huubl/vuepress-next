@@ -1,8 +1,9 @@
-import * as chokidar from 'chokidar'
 import { defineUserConfig } from '@vuepress/cli'
 import type { DefaultThemeOptions } from '@vuepress/theme-default'
-import { chalk, logger } from '@vuepress/utils'
+import { path } from '@vuepress/utils'
 import { navbar, sidebar } from './configs'
+
+const isProd = process.env.NODE_ENV === 'production'
 
 export default defineUserConfig<DefaultThemeOptions>({
   base: '/',
@@ -64,9 +65,10 @@ export default defineUserConfig<DefaultThemeOptions>({
   },
 
   bundler:
-    process.env.NODE_ENV === 'production'
-      ? '@vuepress/webpack'
-      : '@vuepress/vite',
+    // specify bundler via environment variable
+    process.env.DOCS_BUNDLER ??
+    // use vite in dev, use webpack in prod
+    (isProd ? '@vuepress/webpack' : '@vuepress/vite'),
 
   themeConfig: {
     logo: '/images/hero.png',
@@ -126,14 +128,25 @@ export default defineUserConfig<DefaultThemeOptions>({
         ],
         backToHome: '返回首页',
 
-        // other
+        // a11y
         openInNewWindow: '在新窗口打开',
+        toggleDarkMode: '切换夜间模式',
       },
     },
 
     themePlugins: {
       // only enable git plugin in production mode
-      git: process.env.NODE_ENV === 'production',
+      git: isProd,
+    },
+  },
+
+  markdown: {
+    importCode: {
+      handleImportPath: (str) =>
+        str.replace(
+          /^@vuepress/,
+          path.resolve(__dirname, '../../packages/@vuepress')
+        ),
     },
   },
 
@@ -157,7 +170,8 @@ export default defineUserConfig<DefaultThemeOptions>({
     [
       '@vuepress/plugin-google-analytics',
       {
-        id: process.env.GA_ID,
+        // we have multiple deployments, which would use different id
+        id: process.env.DOCS_GA_ID,
       },
     ],
     ['@vuepress/plugin-pwa'],
@@ -172,19 +186,20 @@ export default defineUserConfig<DefaultThemeOptions>({
         },
       },
     ],
+    [
+      '@vuepress/plugin-register-components',
+      {
+        componentsDir: path.resolve(__dirname, './components'),
+      },
+    ],
+    // only enable shiki plugin in production mode
+    [
+      '@vuepress/plugin-shiki',
+      isProd
+        ? {
+            theme: 'dark-plus',
+          }
+        : false,
+    ],
   ],
-
-  evergreen: process.env.NODE_ENV !== 'production',
-
-  onWatched: (_, watchers, restart) => {
-    const watcher = chokidar.watch('configs/**/*.ts', {
-      cwd: __dirname,
-      ignoreInitial: true,
-    })
-    watcher.on('change', async (file) => {
-      logger.info(`file ${chalk.magenta(file)} is modified`)
-      await restart()
-    })
-    watchers.push(watcher)
-  },
 })

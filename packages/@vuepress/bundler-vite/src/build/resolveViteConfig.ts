@@ -1,4 +1,4 @@
-import { mergeConfig, UserConfig } from 'vite'
+import { mergeConfig, InlineConfig } from 'vite'
 import type { App } from '@vuepress/core'
 import { createPlugin } from '../plugin'
 import type { ViteBundlerOptions } from '../types'
@@ -11,24 +11,13 @@ export const resolveViteConfig = ({
   app: App
   options: ViteBundlerOptions
   isServer: boolean
-}): UserConfig =>
+}): InlineConfig =>
   mergeConfig(
     {
-      logLevel: app.env.isDebug ? 'info' : 'warn',
-      build: {
-        ssr: isServer,
-        outDir: isServer ? app.dir.dest('.server') : app.dir.dest(),
-        cssCodeSplit: false,
-        polyfillDynamicImport: false,
-        rollupOptions: {
-          input: isServer
-            ? app.dir.client('lib/server.js')
-            : app.dir.client('lib/client.js'),
-          preserveEntrySignatures: 'allow-extension',
-        },
-        minify: isServer ? false : !app.env.isDebug,
-      },
+      configFile: false,
       plugins: [createPlugin({ app, options, isServer, isBuild: true })],
+      // `logLevel` won't take effect in `config` hook of plugin API
+      logLevel: app.env.isDebug ? 'info' : 'warn',
     },
     options.viteOptions ?? {}
   )

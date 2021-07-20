@@ -1,6 +1,6 @@
 # pwa
 
-> @vuepress/plugin-pwa
+<NpmBadge package="@vuepress/plugin-pwa" />
 
 使你的 VuePress 站点成为一个 [渐进式 Web 应用 (PWA)](https://developer.mozilla.org/zh-CN/docs/Web/Progressive_web_apps).
 
@@ -116,7 +116,7 @@ module.exports = {
 - 示例：
 
 ```ts
-import { usePwaEvent } from '@vuepress/plugin-pwa/lib/composables'
+import { usePwaEvent } from '@vuepress/plugin-pwa/lib/client'
 
 export default {
   setup() {
@@ -146,7 +146,7 @@ export default {
 import {
   usePwaEvent,
   useSkipWaiting,
-} from '@vuepress/plugin-pwa/lib/composables'
+} from '@vuepress/plugin-pwa/lib/client'
 
 export default {
   setup() {

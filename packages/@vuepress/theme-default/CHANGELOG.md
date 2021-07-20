@@ -3,6 +3,259 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.0.0-beta.22](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.21...v2.0.0-beta.22) (2021-07-11)
+
+
+### Bug Fixes
+
+* **plugin-active-header-links:** update active header link selector ([#259](https://github.com/vuepress/vuepress-next/issues/259)) ([adaeed5](https://github.com/vuepress/vuepress-next/commit/adaeed5b71b2746b8d30e0eac7be55a736eefb11))
+* **theme-default:** break long links on overflow (close [#266](https://github.com/vuepress/vuepress-next/issues/266)) ([#273](https://github.com/vuepress/vuepress-next/issues/273)) ([eb970c3](https://github.com/vuepress/vuepress-next/commit/eb970c3aa4c4d650cd964b0c1f60d423a7d55125))
+
+
+
+
+
+# [2.0.0-beta.21](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.20...v2.0.0-beta.21) (2021-07-03)
+
+
+### Bug Fixes
+
+* **theme-default:** fix nav glitch at exactly 719px screen width ([#238](https://github.com/vuepress/vuepress-next/issues/238)) ([3154fbb](https://github.com/vuepress/vuepress-next/commit/3154fbbc5c3b11e5f2a2310a0895538491fbec8f))
+* **theme-default:** use default cursor on non-link sidebar items ([ca22d4f](https://github.com/vuepress/vuepress-next/commit/ca22d4fe7ade66571f34dc80343f4ec57483b44a))
+
+
+
+
+
+# [2.0.0-beta.20](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.19...v2.0.0-beta.20) (2021-06-26)
+
+
+### Features
+
+* **theme-default:** refine sidebar config ([ea7c4bb](https://github.com/vuepress/vuepress-next/commit/ea7c4bbac269f2f9ade4d58cb77dad27055d9bc0))
+
+
+### BREAKING CHANGES
+
+* **theme-default:** `isGroup` field of sidebar config is removed
+
+
+
+
+
+# [2.0.0-beta.19](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.18...v2.0.0-beta.19) (2021-06-19)
+
+
+### Features
+
+* **theme-default:** support activeMatch in navbar config ([ab0c6d1](https://github.com/vuepress/vuepress-next/commit/ab0c6d1544e62b505547c45afe6347fdb735c011))
+* **theme-default:** support disabling dark mode ([6517ce1](https://github.com/vuepress/vuepress-next/commit/6517ce1c66219fc45f0cb645f3db30e275e592bf))
+
+
+
+
+
+# [2.0.0-beta.18](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.17...v2.0.0-beta.18) (2021-06-12)
+
+
+### Bug Fixes
+
+* **theme-default:** exclude h1 header in sidebar ([280626d](https://github.com/vuepress/vuepress-next/commit/280626dd33f5006d6611f6e121eb5edfad8a258e))
+* **theme-default:** show outline of toggle-dark-button ([bc94de0](https://github.com/vuepress/vuepress-next/commit/bc94de0cb3a9454ac0a3e72f3df07326568057d2))
+
+
+
+
+
+# [2.0.0-beta.17](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.16...v2.0.0-beta.17) (2021-06-04)
+
+
+### Bug Fixes
+
+* **theme-default:** avoid long inline code breaking the layout ([#180](https://github.com/vuepress/vuepress-next/issues/180)) ([ada2e2a](https://github.com/vuepress/vuepress-next/commit/ada2e2a884749d9654c3550c4bb92611ea29906c))
+* **theme-default:** fix error of sidebar resolving (close [#185](https://github.com/vuepress/vuepress-next/issues/185)) ([6a96af0](https://github.com/vuepress/vuepress-next/commit/6a96af0b480b04a3c2564739e87a0ae786756581))
+* **theme-default:** respect root-level custom container config (close [#175](https://github.com/vuepress/vuepress-next/issues/175)) ([f2ad5f0](https://github.com/vuepress/vuepress-next/commit/f2ad5f0e988b075cfa37726d67feb8fa54f6176b))
+
+
+### Features
+
+* **theme-default:** improve a11y of CodeGroup ([#163](https://github.com/vuepress/vuepress-next/issues/163)) ([2b76463](https://github.com/vuepress/vuepress-next/commit/2b7646399116114a967a5df64266c6879babb10f))
+
+
+### BREAKING CHANGES
+
+* **theme-default:** default title of danger container is changed to "DANGER"
+
+
+
+
+
+# [2.0.0-beta.16](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.15...v2.0.0-beta.16) (2021-05-28)
+
+
+### Bug Fixes
+
+* **theme-default:** increase medium-zoom delay ([9c92443](https://github.com/vuepress/vuepress-next/commit/9c9244385f4fe6f65115cab6ba08f47dffc1580a))
+
+
+### Features
+
+* **plugin-medium-zoom:** add more css variables (close [#174](https://github.com/vuepress/vuepress-next/issues/174)) ([d717800](https://github.com/vuepress/vuepress-next/commit/d71780094839db02424b60f3a2877871e34eaf64))
+* **plugin-pwa-popup:** add more css variables ([3ae6f72](https://github.com/vuepress/vuepress-next/commit/3ae6f72a1fb981ff132325637d5996c5c07b52f2))
+
+
+
+
+
+# [2.0.0-beta.15](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.14...v2.0.0-beta.15) (2021-05-27)
+
+
+### Bug Fixes
+
+* **theme-default:** handle rotate events on iPad ([#150](https://github.com/vuepress/vuepress-next/issues/150)) ([bbdda60](https://github.com/vuepress/vuepress-next/commit/bbdda60bba0a56590535f3e762dec55767ec031c))
+* **theme-default:** show header anchors when being focused ([#164](https://github.com/vuepress/vuepress-next/issues/164)) ([8de5f0f](https://github.com/vuepress/vuepress-next/commit/8de5f0fa2873f64be0622aced46e1512c7f4fac5))
+
+
+### Features
+
+* **theme-default:** support dark mode (close [#29](https://github.com/vuepress/vuepress-next/issues/29)) ([680e429](https://github.com/vuepress/vuepress-next/commit/680e4298a80ddb06b0381af48644124ffb0b0c4c))
+* **theme-default:** support full link for github repo ([#152](https://github.com/vuepress/vuepress-next/issues/152)) ([8a5055b](https://github.com/vuepress/vuepress-next/commit/8a5055b57d2068e73b4a1c52601c94bdbbc1a7c5))
+* **theme-default:** support Gitee repo ([5cad664](https://github.com/vuepress/vuepress-next/commit/5cad664bd7224a08e679dc06f61f17af6c790b97))
+
+
+### BREAKING CHANGES
+
+* **theme-default:** most sass variables are migrated to css variables
+
+
+
+
+
+# [2.0.0-beta.14](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.13...v2.0.0-beta.14) (2021-05-12)
+
+**Note:** Version bump only for package @vuepress/theme-default
+
+
+
+
+
+# [2.0.0-beta.13](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.12...v2.0.0-beta.13) (2021-05-06)
+
+**Note:** Version bump only for package @vuepress/theme-default
+
+
+
+
+
+# [2.0.0-beta.12](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.11...v2.0.0-beta.12) (2021-04-30)
+
+
+### Bug Fixes
+
+* **theme-default:** align the font of line numbers with code blocks (close [#124](https://github.com/vuepress/vuepress-next/issues/124)) ([#125](https://github.com/vuepress/vuepress-next/issues/125)) ([a3ea87d](https://github.com/vuepress/vuepress-next/commit/a3ea87d507a644dc31bf9ffbb5703eb99342cc60))
+
+
+
+
+
+# [2.0.0-beta.11](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.10...v2.0.0-beta.11) (2021-04-28)
+
+**Note:** Version bump only for package @vuepress/theme-default
+
+
+
+
+
+# [2.0.0-beta.10](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.9...v2.0.0-beta.10) (2021-04-27)
+
+
+### Features
+
+* **theme-default:** compat with docsearch and search plugin ([cb00182](https://github.com/vuepress/vuepress-next/commit/cb0018257c2c6b4b21e2add5f73e7213b537fb6f))
+* **theme-default:** support pageClass frontmatter (close [#118](https://github.com/vuepress/vuepress-next/issues/118)) ([809d575](https://github.com/vuepress/vuepress-next/commit/809d5750c36662e894be566c0ff53c2f2a700da0))
+* **theme-default:** support sidebarDepth ([b79ba90](https://github.com/vuepress/vuepress-next/commit/b79ba90f8e4cb93d76dac1f284131cf618aee784))
+
+
+
+
+
+# [2.0.0-beta.9](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.8...v2.0.0-beta.9) (2021-04-21)
+
+
+### Bug Fixes
+
+* **theme-default:** remove font-smothing in code block ([41c281e](https://github.com/vuepress/vuepress-next/commit/41c281e016c77dc5f1d9d12e8917814e48af1424))
+
+
+### Features
+
+* **theme-default:** add more palette variables for code styles ([db8e0f4](https://github.com/vuepress/vuepress-next/commit/db8e0f4870b051184a4d4b3c5b17497e302b0b11))
+
+
+
+
+
+# [2.0.0-beta.8](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.7...v2.0.0-beta.8) (2021-04-11)
+
+
+### Code Refactoring
+
+* normalize themes and plugins structure ([7781172](https://github.com/vuepress/vuepress-next/commit/77811722401bf1ed1fec44c64158ab0cd1ab3179))
+
+
+### BREAKING CHANGES
+
+* client API that provided by plugins should be imported from `plugin-foo/lib/client`
+
+
+
+
+
+# [2.0.0-beta.7](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.6...v2.0.0-beta.7) (2021-04-09)
+
+
+### Bug Fixes
+
+* **theme-default:** allow direct img children to be zoomable (close [#84](https://github.com/vuepress/vuepress-next/issues/84)) ([832bd6f](https://github.com/vuepress/vuepress-next/commit/832bd6fbbd9612e2209a28ed89a49bf9eb658838))
+
+
+
+
+
+# [2.0.0-beta.6](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.5...v2.0.0-beta.6) (2021-03-26)
+
+**Note:** Version bump only for package @vuepress/theme-default
+
+
+
+
+
+# [2.0.0-beta.5](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.4...v2.0.0-beta.5) (2021-03-26)
+
+
+### Bug Fixes
+
+* **theme-default:** add active class to sidebar group heading ([8dcb945](https://github.com/vuepress/vuepress-next/commit/8dcb9457c532de8076f94b3b165c1347e9bd9c86))
+* **theme-default:** allow NavLink in sidebar children ([ea50010](https://github.com/vuepress/vuepress-next/commit/ea5001076b86a7dc8b807811796a8ed44fbcf7b9))
+* **theme-default:** make navlink active in subpath (close [#70](https://github.com/vuepress/vuepress-next/issues/70)) ([4c865b1](https://github.com/vuepress/vuepress-next/commit/4c865b16430d0e72b0ac1103f9579a93f248bf9c))
+* **theme-default:** make nested sidebar groups work ([4ada701](https://github.com/vuepress/vuepress-next/commit/4ada701062db400787c41008942354f6947bf80b))
+* **theme-default:** make scrollBehavior work with transition (close [#77](https://github.com/vuepress/vuepress-next/issues/77)) ([4b8d0cf](https://github.com/vuepress/vuepress-next/commit/4b8d0cff2d7fa3d74d69d551976a3b12263e6124))
+
+
+
+
+
+# [2.0.0-beta.4](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.3...v2.0.0-beta.4) (2021-03-20)
+
+
+### Features
+
+* **theme-default:** use prismjs plugin ([f131de4](https://github.com/vuepress/vuepress-next/commit/f131de4783685dbabfde4e4966182d570224a246))
+
+
+
+
+
 # [2.0.0-beta.2](https://github.com/vuepress/vuepress-next/compare/v2.0.0-beta.1...v2.0.0-beta.2) (2021-03-14)
 
 **Note:** Version bump only for package @vuepress/theme-default
